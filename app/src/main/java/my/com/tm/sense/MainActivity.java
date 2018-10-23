@@ -62,15 +62,15 @@ public class MainActivity extends AppCompatActivity
 
         switch(id) {
             case R.id.ratepage:
-                fragment = new mylistorder();
+                fragment = new searchemployee();
                 break;
 
             case R.id.setting:
-                fragment = new mylistorder();
+                fragment = new rateemployee();
                 break;
             case R.id.profile:
 
-                fragment = new mylistorder();
+                fragment = new rateemployee();
                 break;
 
 

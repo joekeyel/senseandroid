@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -24,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class cablistblock extends Fragment implements ListView.OnItemClickListener{
+public class searchemployee extends Fragment implements ListView.OnItemClickListener{
 
 
     private ProgressDialog loading;
@@ -32,7 +34,7 @@ public class cablistblock extends Fragment implements ListView.OnItemClickListen
     private ListView listView;
     EditText editext;
     Button btnsearch,back;
-
+    SearchView searchView;
     View myView;
     private String JSON_STRING;
 
@@ -41,7 +43,7 @@ public class cablistblock extends Fragment implements ListView.OnItemClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.list_total_sites, container, false);
+        myView = inflater.inflate(R.layout.search_employee_layout, container, false);
 
         listView = (ListView) myView.findViewById(R.id.list);
 
@@ -61,44 +63,103 @@ public class cablistblock extends Fragment implements ListView.OnItemClickListen
             }
         });
 
-        getJSON();
+        searchView = (SearchView)myView.findViewById(R.id.searchemployee);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // collapse the view ?
+                //menu.findItem(R.id.menu_search).collapseActionView();
+
+//               if(query.length()>3){
+                Log.e("queryText",query);
+              // }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // search goes here !!
+                // listAdapter.getFilter().filter(query);
+                if(newText.length()>3) {
+                    Log.e("queryTextSubmit", newText);
+
+                }
+                return false;
+            }
+        });
+
+
+        btnsearch = (Button)myView.findViewById(R.id.searchbutton);
+        btnsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchname = String.valueOf(searchView.getQuery());
+
+                Log.e("queryTextSubmitButton", searchname);
+
+                if(searchname.isEmpty()){
+                    Toast toast = Toast.makeText(getActivity(), "Pls enter employee name", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }else {
+                    getJSON();
+
+                }
+            }
+        });
+
+
 
         return myView;
     }
 
     private void showEmployee(){
         JSONObject jsonObject = null;
-        ArrayList<HashMap<String,String>> list = new ArrayList  <HashMap<String, String>>();
+
+        ArrayList<employeemodel> employeelist = new ArrayList<>();
         try {
             jsonObject = new JSONObject(JSON_STRING);
-            JSONArray result = jsonObject.getJSONArray("cablist");
+            JSONArray result = jsonObject.getJSONArray("employeelist");
 
             for(int i = 0; i<result.length(); i++){
                 JSONObject jo = result.getJSONObject(i);
-                String a = jo.getString("STATE");
-                String b = jo.getString("total");
+                String a = jo.getString("employeename");
+                String b = jo.getString("email");
+                String c = jo.getString("staffid");
+                String d = jo.getString("division");
 
 
-                HashMap<String,String> employees = new HashMap<>();
-                employees.put("STATE",a);
-                employees.put("total",b);
 
 
-                list.add(employees);
+
+                employeemodel employeeeobject = new employeemodel();
+                employeeeobject.setName(a);
+                employeeeobject.setEmail(b);
+                employeeeobject.setDivision(d);
+                employeeeobject.setStaffid(c);
+
+
+                employeelist.add(employeeeobject);
+
 
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+//
+//        ListAdapter adapter = new SimpleAdapter(
+//                getActivity(), list, R.layout.totalpstnsite,
+//                new String[]{"STATE","total"},
+//
+//                new int[]{R.id.satu, R.id.dua});
 
-        ListAdapter adapter = new SimpleAdapter(
-                getActivity(), list, R.layout.totalpstnsite,
-                new String[]{"STATE","total"},
+        employeeadaptor adapter2 =  new employeeadaptor(getActivity(),R.layout.employee_row,employeelist);
 
-                new int[]{R.id.satu, R.id.dua});
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter2);
 
     }
 
@@ -127,7 +188,7 @@ public class cablistblock extends Fragment implements ListView.OnItemClickListen
             @Override
             protected String doInBackground(Void... params) {
                 RequestHandler3 rh = new RequestHandler3();
-                String s = rh.sendGetRequest(Config.URL_IPMSANBlocklist);
+                String s = rh.sendGetRequest(Config.URL_EMPLOYEE);
                 return s;
             }
         }
@@ -143,15 +204,16 @@ public class cablistblock extends Fragment implements ListView.OnItemClickListen
 
        Fragment fragment1 = null;
 
-        HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String empId = map.get("STATE").toString();
+        employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
+
+        String empId = obj.getName();
 
 
 
-         fragment1 = new ListTotalBlockPerState ();
+         fragment1 = new rateemployee ();
 
         Bundle args = new Bundle();
-        args.putString("STATE", empId);
+        args.putString("employeename", empId);
         fragment1.setArguments(args);
 
         Context context = getActivity();

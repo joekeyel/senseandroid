@@ -142,8 +142,8 @@ public class Ipmsansite extends Fragment implements View.OnClickListener  {
 
         if(view == totalBlockNis) {
             //finish();
-//            startActivity(new Intent(getActivity(), cablistblock.class));
-            fragment = new cablistblock();
+//            startActivity(new Intent(getActivity(), searchemployee.class));
+            fragment = new searchemployee();
         }
 
         if(fragment != null){

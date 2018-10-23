@@ -53,7 +53,7 @@
             android:name="my.com.tm.sense.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="my.com.tm.sense.mylistorder"
+            android:name="my.com.tm.sense.rateemployee"
             android:label="OUTSTANDING ORDER"></activity>
         <activity
             android:name="my.com.tm.sense.Ipmsansite"
@@ -83,7 +83,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name="my.com.tm.sense.cablistblock"></activity>
+        <activity android:name="my.com.tm.sense.searchemployee"></activity>
         <activity android:name="my.com.tm.sense.ListTotalBlockPerState"></activity>
         <activity android:name="my.com.tm.sense.mapsview"></activity>
 
