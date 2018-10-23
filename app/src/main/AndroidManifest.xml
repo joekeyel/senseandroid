@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="my.com.tm.sense">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/senseicon"
+        android:label="Sense"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="my.com.tm.sense.Start"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="my.com.tm.sense.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="my.com.tm.sense.ResetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="my.com.tm.sense.Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="my.com.tm.sense.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="my.com.tm.sense.mylistorder"
+            android:label="OUTSTANDING ORDER"></activity>
+        <activity
+            android:name="my.com.tm.sense.Ipmsansite"
+            android:label="IPMSAN"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="58.27.84.166"
+                    android:pathPrefix="/totalcab"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="my.com.tm.sense.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="my.com.tm.sense.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="my.com.tm.sense.cablistblock"></activity>
+        <activity android:name="my.com.tm.sense.ListTotalBlockPerState"></activity>
+        <activity android:name="my.com.tm.sense.mapsview"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCjESmUgGenOfL1fARSvDCIB6KLg7AT41k" />
+    </application>
+
+</manifest>

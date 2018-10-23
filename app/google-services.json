@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "443378748712",
+    "firebase_url": "https://sense-b69e9.firebaseio.com",
+    "project_id": "sense-b69e9",
+    "storage_bucket": "sense-b69e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443378748712:android:ba44912115398df5",
+        "android_client_info": {
+          "package_name": "my.com.tm.sense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443378748712-kf2mkgiaobgu2pj1v64c4rr3j0ndqqmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl8KFUL_4g-lYWPVCPthLTdOH63BJCpmw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
