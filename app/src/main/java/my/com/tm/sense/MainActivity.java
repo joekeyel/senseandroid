@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            displaySelectedScreen(R.id.nav_pstn);
+            displaySelectedScreen(R.id.ratepage);
 
 
 
@@ -61,22 +61,19 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         switch(id) {
-            case R.id.nav_pstn:
-                fragment = new PSTN();
+            case R.id.ratepage:
+                fragment = new mylistorder();
                 break;
 
-            case R.id.nav_ipmsan:
-                fragment = new Ipmsansite();
+            case R.id.setting:
+                fragment = new mylistorder();
                 break;
-            case R.id.nav_copper:
+            case R.id.profile:
 
-                fragment = new Ipmsansite();
+                fragment = new mylistorder();
                 break;
 
-            case R.id.my_maps:
-                if(fragment == null)
-               fragment = new mapsview();
-                break;
+
 
             case R.id.nav_logout:
 
