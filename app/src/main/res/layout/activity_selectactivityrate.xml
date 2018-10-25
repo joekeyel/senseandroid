@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RadioGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/imagetoggle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/button_selector"
+            android:button="@android:color/transparent"
+            android:textOff="1"
+            android:textOn="1" />
+
+        <RadioButton
+            android:id="@+id/imagetoggle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/button_selector2"
+            android:button="@android:color/transparent"
+            android:textOff="2"
+            android:textOn="2" />
+
+        <RadioButton
+            android:id="@+id/imagetoggle3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/button_selector2"
+            android:button="@android:color/transparent"
+            android:textOff="2"
+            android:textOn="2" />
+
+        <RadioButton
+            android:id="@+id/imagetoggle4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/button_selector2"
+            android:button="@android:color/transparent"
+            android:textOff="2"
+            android:textOn="2" />
+        <RadioButton
+            android:id="@+id/imagetoggle5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/button_selector2"
+            android:button="@android:color/transparent"
+            android:textOff="2"
+            android:textOn="2" />
+
+
+    </RadioGroup>
+
+</LinearLayout>
