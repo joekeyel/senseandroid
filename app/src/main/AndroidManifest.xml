@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <supports-screens
         android:anyDensity="true"
@@ -90,7 +91,8 @@
             android:value="AIzaSyCjESmUgGenOfL1fARSvDCIB6KLg7AT41k" />
 
         <activity android:name=".selectactivityrate" />
-        <activity android:name=".rateactivity"></activity>
+        <activity android:name=".rateactivity" />
+        <activity android:name=".scanqractivity"></activity>
     </application>
 
 </manifest>

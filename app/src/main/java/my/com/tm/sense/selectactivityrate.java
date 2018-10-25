@@ -20,9 +20,14 @@ public class selectactivityrate extends AppCompatActivity {
 
 
         Intent i = getIntent();
-        employeename = i.getStringExtra("employeeid");
+        employeename = i.getStringExtra("employeename");
+
+
 
          selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
+
+        selectecsmiley.setText(employeename);
+
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -47,6 +52,7 @@ public class selectactivityrate extends AppCompatActivity {
 //                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 
                         selectecsmiley.setText("You Have selected level 1");
+                        selectecsmiley.setText(employeename);
 
 
                         break;

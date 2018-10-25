@@ -18,7 +18,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.Result;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class searchemployee extends Fragment implements ListView.OnItemClickListener{
 
@@ -42,6 +47,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.search_employee_layout, container, false);
@@ -53,13 +60,13 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         back = (Button) myView.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(),Ipmsansite.class));
-                Fragment fragment = new Ipmsansite();
-
-
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.content_frame, fragment);
-                    ft.commit();
+                startActivity(new Intent(getActivity(),scanqractivity.class));
+//                Fragment fragment = new Ipmsansite();
+//
+//
+//                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                    ft.replace(R.id.content_frame, fragment);
+//                    ft.commit();
 
             }
         });
@@ -112,10 +119,40 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         });
 
 
+        TextView scantext = (TextView)myView.findViewById(R.id.scantext);
+
+scantext.setText("powerlah");
+        if (getArguments() != null) {
+
+            Toast toast = Toast.makeText(getActivity(), getArguments().getString("email"), Toast.LENGTH_SHORT);
+            toast.show();
+
+            String scantextqr = getArguments().getString("email");
+            Log.e("scantext",getArguments().getString("email"));
+
+            //searchView.setQuery(getArguments().getString("email"), false);
+
+
+
+           settextreturn(scantextqr,scantext);
+
+
+
+        }
+
+
 
         return myView;
     }
 
+    private void settextreturn(String scantext,TextView tv){
+
+
+        tv.setText(scantext);
+
+
+
+    }
     private void showEmployee(){
         JSONObject jsonObject = null;
 
@@ -242,6 +279,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
     }
+
 
 
 }
