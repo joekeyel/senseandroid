@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity
                 fragment = new rateemployee();
                 break;
 
+            case R.id.scanimagegal:
+
+
+               fragment = new scanimagegallery();
+                break;
 
 
             case R.id.nav_logout:
