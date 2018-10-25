@@ -1,5 +1,6 @@
 package my.com.tm.sense;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -201,8 +202,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-       Fragment fragment1 = null;
+//
+//       Fragment fragment1 = null;
 
         employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
 
@@ -210,11 +211,11 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-         fragment1 = new rateemployee ();
-
-        Bundle args = new Bundle();
-        args.putString("employeename", empId);
-        fragment1.setArguments(args);
+//         fragment1 = new rateemployee ();
+//
+//        Bundle args = new Bundle();
+//        args.putString("employeename", empId);
+//        fragment1.setArguments(args);
 
         Context context = getActivity();
         CharSequence text = empId;
@@ -222,12 +223,18 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+//
+//        if(fragment1 != null){
+//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.content_frame, fragment1);
+//            ft.commit();
+//        }
 
-        if(fragment1 != null){
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment1);
-            ft.commit();
-        }
+
+
+        Intent nextpage = new Intent(getActivity(),selectactivityrate.class);
+        nextpage.putExtra("employeename",empId);
+        startActivity(nextpage);
 
      //   intent.putExtra("STATE", empId);
 

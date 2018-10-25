@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <RadioGroup
         android:id="@+id/toggleGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
 
@@ -18,6 +22,7 @@
             android:layout_weight="0.2"
             android:background="@drawable/button_selector"
             android:button="@android:color/transparent"
+            android:gravity="center"
             android:textOff="1"
             android:textOn="1" />
 
@@ -50,6 +55,7 @@
             android:button="@android:color/transparent"
             android:textOff="2"
             android:textOn="2" />
+
         <RadioButton
             android:id="@+id/imagetoggle5"
             android:layout_width="0dp"
@@ -62,5 +68,24 @@
 
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/selectedsmiley"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:background="@color/light_orange"/>
+
+    <Button
+        android:id="@+id/gotoratebutton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/colorPrimary"
+        android:text="NEXT" />
 
 </LinearLayout>

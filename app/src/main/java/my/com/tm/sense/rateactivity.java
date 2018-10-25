@@ -1,29 +1,24 @@
 package my.com.tm.sense;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class selectactivityrate extends AppCompatActivity {
+public class rateactivity extends AppCompatActivity {
 
-    TextView selectecsmiley;
-    String employeename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selectactivityrate);
+        setContentView(R.layout.activity_rateactivity);
+
+        final TextView selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
+        final EditText reasoncode = (EditText)findViewById(R.id.reasoncode);
 
 
-        Intent i = getIntent();
-        employeename = i.getStringExtra("employeeid");
-
-         selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
+        RadioGroup radioGroup = (RadioGroup)  findViewById(R.id.toggleGroup);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -74,30 +69,40 @@ public class selectactivityrate extends AppCompatActivity {
                         // Ninjas rule
                         break;
 
+                    case R.id.imagetoggle6:
+                        selectecsmiley.setText("You Have selected level 6");
 
+                        break;
 
+                    case R.id.imagetoggle7:
+                        selectecsmiley.setText("You Have selected level 7");
 
+                        // Ninjas rule
+                        break;
+
+                    case R.id.imagetoggle8:
+                        selectecsmiley.setText("You Have selected level 8");
+
+                        // Ninjas rule
+                        break;
+
+                    case R.id.imagetoggle9:
+                        selectecsmiley.setText("You Have selected level 9");
+
+                        // Ninjas rule
+                        break;
+
+                    case R.id.imagetoggle10:
+                        selectecsmiley.setText("You Have selected level 10");
+
+                        // Ninjas rule
+                        break;
                 }
 
 
 
             }
         });
-
-
-        Button nextpage = (Button)findViewById(R.id.gotoratebutton);
-        nextpage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent nextpage = new Intent(getApplicationContext(),rateactivity.class);
-                nextpage.putExtra("employeename",employeename);
-                startActivity(nextpage);
-
-            }
-        });
-
-
 
     }
 }

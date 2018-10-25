@@ -89,7 +89,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCjESmUgGenOfL1fARSvDCIB6KLg7AT41k" />
 
-        <activity android:name=".selectactivityrate"></activity>
+        <activity android:name=".selectactivityrate" />
+        <activity android:name=".rateactivity"></activity>
     </application>
 
 </manifest>
