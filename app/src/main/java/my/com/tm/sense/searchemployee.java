@@ -1,12 +1,18 @@
 package my.com.tm.sense;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +27,26 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
 import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -119,9 +139,14 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         });
 
 
-        TextView scantext = (TextView)myView.findViewById(R.id.scantext);
+        Button scanimagegalery = (Button)myView.findViewById(R.id.scangallery);
+        scanimagegalery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectgallerywall1();
+            }
+        });
 
-scantext.setText("powerlah");
         if (getArguments() != null) {
 
             Toast toast = Toast.makeText(getActivity(), getArguments().getString("email"), Toast.LENGTH_SHORT);
@@ -130,11 +155,8 @@ scantext.setText("powerlah");
             String scantextqr = getArguments().getString("email");
             Log.e("scantext",getArguments().getString("email"));
 
-            //searchView.setQuery(getArguments().getString("email"), false);
 
 
-
-           settextreturn(scantextqr,scantext);
 
 
 
@@ -145,14 +167,7 @@ scantext.setText("powerlah");
         return myView;
     }
 
-    private void settextreturn(String scantext,TextView tv){
 
-
-        tv.setText(scantext);
-
-
-
-    }
     private void showEmployee(){
         JSONObject jsonObject = null;
 
@@ -281,5 +296,143 @@ scantext.setText("powerlah");
     }
 
 
+
+
+    public void selectgallerywall1() {
+
+
+
+
+        // Perform action on click
+        Intent camera_intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        File file = getFile("scanimage");
+
+        Uri apkURI = FileProvider.getUriForFile(
+                searchemployee.this.getActivity(),
+                searchemployee.this.getActivity()
+                        .getPackageName() + ".provider", file);
+
+
+        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
+
+                //photoURI
+                apkURI
+
+        );
+
+
+        startActivityForResult(camera_intent, 1);
+
+
+    }
+
+    private File getFile(String filename){
+
+
+        File Folder = new File(Environment.getExternalStorageDirectory() +
+                File.separator +"DCIM");
+
+        if(!Folder.exists()){
+
+            Folder.mkdir();
+        }
+
+        File image_file = new File(Folder,filename+".jpg");
+
+        return image_file;
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (data != null) {
+            Uri contentURI = data.getData();
+
+
+            final String path = Environment.getExternalStorageDirectory() +
+                    File.separator + "DCIM/scanimage.jpg";
+
+            Bitmap bmp = null;
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), contentURI);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("Error image Galery", e.toString());
+            }
+            Bitmap photo = Bitmap.createScaledBitmap(bmp, 1280, 1024, true);
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+            photo.compress(Bitmap.CompressFormat.JPEG, 80, bytes);
+
+            File f = new File(Environment.getExternalStorageDirectory()
+                    + File.separator + "DCIM/scanimage.jpg");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            FileOutputStream fo = null;
+            try {
+                fo = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fo.write(bytes.toByteArray());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fo.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            int[] intArray = new int[bmp.getWidth()*bmp.getHeight()];
+//copy pixel data from the Bitmap into the 'intArray' array
+            bmp.getPixels(intArray, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
+
+            LuminanceSource source = new RGBLuminanceSource(bmp.getWidth(), bmp.getHeight(), intArray);
+            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+            Reader reader = new MultiFormatReader();
+            Result result = null;
+            try {
+                result = reader.decode(bitmap);
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            } catch (ChecksumException e) {
+                e.printStackTrace();
+            } catch (FormatException e) {
+                e.printStackTrace();
+            }
+
+            if(result != null) {
+                String contents = result.getText();
+
+                Toast toast = Toast.makeText(getActivity(), contents, Toast.LENGTH_SHORT);
+                toast.show();
+
+
+                String scantexttr = result.getText();
+                Intent nextpage = new Intent(getActivity(),selectactivityrate.class);
+                nextpage.putExtra("employeename",scantexttr);
+                startActivity(nextpage);
+
+            }
+            else{
+
+                Toast toast = Toast.makeText(getActivity(), "Image is not readable", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+
+
+    }
 
 }

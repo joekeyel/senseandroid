@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.scanimagegal:
 
 
-               fragment = new scanimagegallery();
+               fragment = new generateqrcode();
                 break;
 
 

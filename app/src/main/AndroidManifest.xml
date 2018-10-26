@@ -93,7 +93,7 @@
         <activity android:name=".selectactivityrate" />
         <activity android:name=".rateactivity" />
         <activity android:name=".scanqractivity" />
-        <activity android:name=".scanimagegallery"></activity>
+        <activity android:name=".generateqrcode"></activity>
 
 
         <provider

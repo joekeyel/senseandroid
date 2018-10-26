@@ -52,7 +52,7 @@ public class selectactivityrate extends AppCompatActivity {
 //                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 
                         selectecsmiley.setText("You Have selected level 1");
-                        selectecsmiley.setText(employeename);
+
 
 
                         break;

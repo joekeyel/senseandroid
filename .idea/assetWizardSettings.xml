@@ -48,9 +48,9 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/10/android/playstore-icon.png" />
-                                      <entry key="foregroundLayerName" value="ten_smiley_layer_selected" />
-                                      <entry key="outputName" value="ten_smiley_selected" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/meeting_not_selected/android/playstore-icon.png" />
+                                      <entry key="foregroundLayerName" value="meeting_not_selected_layer" />
+                                      <entry key="outputName" value="meeting_not_selected" />
                                     </map>
                                   </option>
                                 </PersistentState>

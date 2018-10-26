@@ -4,6 +4,18 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/ratepage"
+            android:title="FIND USER"
+            android:icon="@drawable/searchicon"/>
+
+
+        <item
+            android:id="@+id/scanimagegal"
+            android:title="GENERATE QR"
+            android:icon="@mipmap/bar_code"/>
+
         <item
             android:id="@+id/profile"
             android:title="Profile"
@@ -12,15 +24,7 @@
             android:id="@+id/setting"
             android:title="Setting"
             android:icon="@drawable/settingicon"/>
-        <item
-            android:id="@+id/ratepage"
-            android:title="Main"
-            android:icon="@drawable/searchicon"/>
 
-        <item
-            android:id="@+id/scanimagegal"
-            android:title="Scan Image"
-            android:icon="@drawable/searchicon"/>
 
         <item
             android:id="@+id/nav_logout"

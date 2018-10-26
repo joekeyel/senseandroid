@@ -7,14 +7,23 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9"
+        android:layout_weight="0.8"
         android:id="@+id/scanimage"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:text="You can sent this QR Code to rate you through this App"
+        android:padding="10dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:onClick="selectgallerywall1"
-        android:id="@+id/findimage"/>
+
+        android:id="@+id/findimage"
+        android:background="@color/light_orange"
+        android:text="Generate QR Code"/>
 
 </LinearLayout>
