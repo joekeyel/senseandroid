@@ -10,6 +10,7 @@ public class Config {
     public static final String URL_PSTN="http://58.27.84.166/mcconline/MCC%20Online%20V3/decom_pstn.php";
 
     public static final String URL_EMPLOYEE="http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/employeelist.php";
+    public static final String URL_EMPLOYEEADD="http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/insertuser.php";
 
 
     //IPMSAN SITES

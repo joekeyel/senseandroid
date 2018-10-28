@@ -12,7 +12,7 @@ public class rateactivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rateactivity);
+        setContentView(R.layout.choosesmiley);
 
         final TextView selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
         final EditText reasoncode = (EditText)findViewById(R.id.reasoncode);

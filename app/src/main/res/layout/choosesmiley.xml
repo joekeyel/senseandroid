@@ -6,160 +6,162 @@
     android:orientation="vertical"
    >
 
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.1"
+    android:text="On scale 1 to 10, pls select ur rating"
+    android:textAlignment="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.6">
+        android:layout_weight="0.5">
 
-        <LinearLayout
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="0.2"></LinearLayout>
+        <RadioGroup
+            android:id="@+id/toggleGroup"
             android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/toggleGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/imagetoggle1"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="1"
+                android:textOn="1"
+
+                />
+
+            <RadioButton
+                android:id="@+id/imagetoggle2"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector2"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="2"
+                android:textOn="2" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle3"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector3"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="3"
+                android:textOn="3" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle4"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector4"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="4"
+                android:textOn="4" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle5"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector5"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="5"
+                android:textOn="5" />
 
 
-                <RadioButton
-                    android:id="@+id/imagetoggle1"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="1"
-                    android:textOn="1"
+            <RadioButton
+                android:id="@+id/imagetoggle6"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector6"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
 
-                    />
+                />
 
-                <RadioButton
-                    android:id="@+id/imagetoggle2"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector2"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="2"
-                    android:textOn="2" />
+            <RadioButton
+                android:id="@+id/imagetoggle7"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector7"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
 
-                <RadioButton
-                    android:id="@+id/imagetoggle3"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector3"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="3"
-                    android:textOn="3" />
+                />
 
-                <RadioButton
-                    android:id="@+id/imagetoggle4"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector4"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="4"
-                    android:textOn="4" />
+            <RadioButton
+                android:id="@+id/imagetoggle8"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector8"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
 
-                <RadioButton
-                    android:id="@+id/imagetoggle5"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector5"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="5"
-                    android:textOn="5" />
+                />
 
+            <RadioButton
+                android:id="@+id/imagetoggle9"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector9"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
 
-                <RadioButton
-                    android:id="@+id/imagetoggle6"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector6"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="6"
-                    android:textOn="6"
+                />
 
-                    />
+            <RadioButton
+                android:id="@+id/imagetoggle10"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector10"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
 
-                <RadioButton
-                    android:id="@+id/imagetoggle7"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector7"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="6"
-                    android:textOn="6"
+                />
 
-                    />
+        </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/imagetoggle8"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector8"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="6"
-                    android:textOn="6"
-
-                    />
-
-                <RadioButton
-                    android:id="@+id/imagetoggle9"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector9"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="6"
-                    android:textOn="6"
-
-                    />
-
-                <RadioButton
-                    android:id="@+id/imagetoggle10"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:background="@drawable/button_selector10"
-                    android:button="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:textOff="6"
-                    android:textOn="6"
-
-                    />
-
-            </RadioGroup>
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
 
             android:orientation="vertical">
 
@@ -233,6 +235,10 @@
 
                 android:text="10" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"></LinearLayout>
 
     </LinearLayout>
 

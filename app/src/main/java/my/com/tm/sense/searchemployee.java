@@ -27,6 +27,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
@@ -63,6 +65,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     SearchView searchView;
     View myView;
     private String JSON_STRING;
+    private String JSON_RESULT;
 
 
 
@@ -72,6 +75,13 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.search_employee_layout, container, false);
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        String email = user.getEmail();
+
+        registerUser(uid,email);
 
         listView = (ListView) myView.findViewById(R.id.list);
 
@@ -132,7 +142,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                     toast.show();
 
                 }else {
-                    getJSON();
+                    getJSON(searchname);
 
                 }
             }
@@ -182,6 +192,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 String b = jo.getString("email");
                 String c = jo.getString("staffid");
                 String d = jo.getString("division");
+                String e = jo.getString("uid");
 
 
 
@@ -192,6 +203,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 employeeeobject.setEmail(b);
                 employeeeobject.setDivision(d);
                 employeeeobject.setStaffid(c);
+                employeeeobject.setUid(e);
+
 
 
                 employeelist.add(employeeeobject);
@@ -214,17 +227,19 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
         listView.setAdapter(adapter2);
 
+
+
     }
 
 
-    private void getJSON(){
+    private void getJSON(final String query){
         class GetJSON extends AsyncTask<Void,Void,String> {
 
             ProgressDialog loading;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-//                loading = ProgressDialog.show(getApplicationContext(),"Loading Data","Wait...",false,false);
+              loading = ProgressDialog.show(getActivity(),"Loading Data","Wait...",false,false);
                 // loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
             }
 
@@ -236,17 +251,78 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 JSON_STRING = s;
                 //  showData();
                 showEmployee();
+                loading.dismiss();
             }
 
             @Override
             protected String doInBackground(Void... params) {
                 RequestHandler3 rh = new RequestHandler3();
-                String s = rh.sendGetRequest(Config.URL_EMPLOYEE);
+                String s = rh.sendGetRequest(Config.URL_EMPLOYEE+"?query="+query);
                 return s;
             }
         }
         GetJSON gj = new GetJSON();
         gj.execute();
+    }
+
+
+    private void registerUser(final String uid, final String email){
+
+
+        class GetJSON extends AsyncTask<String,Void,String> {
+
+            ProgressDialog loading;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                loading = ProgressDialog.show(getActivity(),"Loading Data","Wait...",false,false);
+
+                // loading = ProgressDialog.show(getActivity(),"Loading Data","Wait...",false,false);
+                // loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                //   loading.dismiss();
+                //   loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
+                JSON_RESULT = s;
+
+                if(!s.isEmpty()){
+                Toast toast1 = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
+                toast1.show();
+
+                }
+                //  showData();
+//                try {
+//                    JSONObject jsonreturn = new JSONObject(s);
+//
+//                    String result = String.valueOf(jsonreturn.getJSONObject("result"));
+//                    Toast toast = Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT);
+//                    toast.show();
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+                loading.dismiss();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                HashMap<String, String> map = new HashMap<>();
+
+                map.put("uid",params[0]);
+                map.put("email",params[1]);
+
+                RequestHandler3 rh = new RequestHandler3();
+                String s = rh.sendPostRequest(Config.URL_EMPLOYEEADD,map);
+                return s;
+            }
+        }
+        GetJSON gj = new GetJSON();
+        gj.execute(uid,email);
     }
 
 

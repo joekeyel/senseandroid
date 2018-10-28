@@ -1,8 +1,11 @@
 package my.com.tm.sense;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,8 +18,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,8 +51,54 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
+
+        View navView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+//reference to views
+        ImageView imgvw = (ImageView)navView.findViewById(R.id.imageViewheader);
+
+//set views
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            loadimage(imgvw,uid);
+
+
             displaySelectedScreen(R.id.ratepage);
 
+
+
+    }
+
+    public void loadimage(final ImageView view, final String imagename1){
+
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+
+        storageRef.child("senseprofile" + "/"+imagename1+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // TODO: handle uri
+
+                Context context = getApplicationContext();
+
+                view.invalidate();
+
+                Picasso.with(context).load(uri).networkPolicy(NetworkPolicy.NO_CACHE).into(view);
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Hand
+                //
+                //
+                // le any errors
+
+                Toast.makeText(getApplicationContext(), "Failed  To view image"+ imagename1+" "+exception , Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -70,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.profile:
 
-                fragment = new rateemployee();
+                fragment = new editprofile();
                 break;
 
             case R.id.scanimagegal:

@@ -1,13 +1,24 @@
 package my.com.tm.sense;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,11 +115,13 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         TextView email;
         TextView division;
         TextView staffid;
+        final ImageView image;
 
         name = (TextView)convertView.findViewById(R.id.employeename);
         email = (TextView)convertView.findViewById(R.id.employeeemail);
         division = (TextView)convertView.findViewById(R.id.employeediv);
         staffid = (TextView)convertView.findViewById(R.id.employeestaffid);
+        image = (ImageView)convertView.findViewById(R.id.imageViewrow);
 
         name.setText(ttmodellist.get(position).getName());
         email.setText(ttmodellist.get(position).getEmail());
@@ -116,6 +129,35 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         staffid.setText(ttmodellist.get(position).getStaffid());
 
 
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+
+        storageRef.child("senseprofile" + "/"+ttmodellist.get(position).getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // TODO: handle uri
+
+                Context context = image.getContext();
+
+                image.invalidate();
+
+                Picasso.with(context).load(uri).networkPolicy(NetworkPolicy.NO_CACHE).into(image);
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Hand
+                //
+                //
+                // le any errors
+
+                Toast toast1 = Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+        });
 
 
         return convertView;
