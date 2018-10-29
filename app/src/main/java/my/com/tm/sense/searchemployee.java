@@ -1,5 +1,6 @@
 package my.com.tm.sense;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -66,10 +68,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     View myView;
     private String JSON_STRING;
     private String JSON_RESULT;
-
-
-
-
+    private AlertDialog.Builder alertDialogform;
+    AlertDialog alertform;
 
 
     @Override
@@ -290,21 +290,30 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 JSON_RESULT = s;
 
                 if(!s.isEmpty()){
-                Toast toast1 = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
-                toast1.show();
+//                Toast toast1 = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
+//                toast1.show();
+
+
+
+                try {
+                    JSONObject jsonreturn = new JSONObject(s);
+
+                    String result = jsonreturn.getString("result");
+
+                    if(result == "user not exist"){
+
+                        showdialogbox();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
 
                 }
-                //  showData();
-//                try {
-//                    JSONObject jsonreturn = new JSONObject(s);
-//
-//                    String result = String.valueOf(jsonreturn.getJSONObject("result"));
-//                    Toast toast = Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT);
-//                    toast.show();
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+
+                }
                 loading.dismiss();
             }
 
@@ -317,7 +326,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 map.put("email",params[1]);
 
                 RequestHandler3 rh = new RequestHandler3();
-                String s = rh.sendPostRequest(Config.URL_EMPLOYEEADD,map);
+                String s = rh.sendPostRequest(Config.URL_EMPLOYEEUPDATE,map);
                 return s;
             }
         }
@@ -325,8 +334,43 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         gj.execute(uid,email);
     }
 
+    private void showdialogbox() {
 
 
+        alertDialogform = new AlertDialog.Builder(getActivity());
+
+        alertform = alertDialogform.create();
+
+        alertform.setTitle("Insert Your Info");
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        // inflate the custom popup layout
+        final View convertView = inflater.inflate(R.layout.userinfoformdialog, null);
+        // find the ListView in the popup layout
+
+
+        // setSimpleList(listView, comment);
+
+        alertform.setView(convertView);
+        alertform.setCanceledOnTouchOutside(false);
+
+        if(alertform == null) {
+            alertform.show();
+        }
+
+
+
+
+    }
+
+
+
+    public void alerthide(){
+
+        alertform.dismiss();
+
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
