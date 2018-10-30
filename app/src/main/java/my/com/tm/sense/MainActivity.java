@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_logout:
 
                 // ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-               firebaseAuth.getInstance().signOut();
+
                 LayoutInflater factory = LayoutInflater.from(MainActivity.this);
                 final View view = factory.inflate(R.layout.alertdialog,null);
 
@@ -154,7 +154,9 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 //signout();
+                                firebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                                finish();
                             }
                         });
 

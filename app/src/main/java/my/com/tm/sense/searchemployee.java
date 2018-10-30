@@ -69,7 +69,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     private String JSON_STRING;
     private String JSON_RESULT;
     private AlertDialog.Builder alertDialogform;
-    AlertDialog alertform;
+    AlertDialog alertform = null;
 
 
     @Override
@@ -299,10 +299,14 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                     JSONObject jsonreturn = new JSONObject(s);
 
                     String result = jsonreturn.getString("result");
+//
+//                    Toast toast1 = Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT);
+//                    toast1.show();
 
-                    if(result == "user not exist"){
 
+                    if(result.equals("user not exist")){
                         showdialogbox();
+
                     }
 
                 } catch (JSONException e) {
@@ -334,6 +338,74 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         gj.execute(uid,email);
     }
 
+
+    private void insertuser(final String employeename,String division,String staffid,String email,String uid){
+
+
+        class insertusertask extends AsyncTask<String,Void,String> {
+
+            ProgressDialog loading;
+
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(getActivity(),"Loading Data","Wait...",false,false);
+                // loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                JSON_RESULT = s;
+
+                if(!s.isEmpty()){
+
+
+
+                    try {
+                        JSONObject jsonreturn = new JSONObject(s);
+
+                        String result = jsonreturn.getString("result");
+
+                    Toast toast1 = Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT);
+                    toast1.show();
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                        Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+
+                }
+                loading.dismiss();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                HashMap<String, String> map = new HashMap<>();
+
+                map.put("uid",params[4]);
+                map.put("email",params[3]);
+                map.put("division",params[1]);
+                map.put("staffid",params[2]);
+                map.put("employeename",params[0]);
+
+                RequestHandler3 rh = new RequestHandler3();
+                String s = rh.sendPostRequest(Config.URL_EMPLOYEEINSERT,map);
+                return s;
+            }
+        }
+        insertusertask gj = new insertusertask();
+        gj.execute(employeename,division,staffid,email,uid);
+    }
+
+
     private void showdialogbox() {
 
 
@@ -350,20 +422,72 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         // find the ListView in the popup layout
 
 
-        // setSimpleList(listView, comment);
+       final EditText name = (EditText)convertView.findViewById(R.id.nameet);
+        final EditText division = (EditText)convertView.findViewById(R.id.divisionet);
+        final EditText staffid = (EditText)convertView.findViewById(R.id.staffidet);
+
+        Button updatebutton = (Button)convertView.findViewById(R.id.updatebutton);
+
+
+
+
+        updatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String namestr = name.getText().toString();
+                final String divisionstr = division.getText().toString();
+                final String staffidstr = staffid.getText().toString();
+
+                if(namestr.isEmpty()){
+                    Toast toast = Toast.makeText(getActivity(), "Please insert Name", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+                if(divisionstr.isEmpty()){
+
+                    Toast toast = Toast.makeText(getActivity(), "Please insert Division", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+                if(staffidstr.isEmpty())
+
+                {
+
+                    Toast toast = Toast.makeText(getActivity(), "Please insert Staffid", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                if(!staffidstr.isEmpty() && !divisionstr.isEmpty() && !namestr.isEmpty())
+
+                    {
+
+                    Toast toast = Toast.makeText(getActivity(), "Submitted", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String email = user.getEmail();
+                    String uid = user.getUid();
+
+                    insertuser(namestr,divisionstr,staffidstr,email,uid);
+                    alerthide();
+
+                }
+
+
+            }
+        });
+
+
 
         alertform.setView(convertView);
         alertform.setCanceledOnTouchOutside(false);
+        alertform.setCancelable(false);
 
-        if(alertform == null) {
+
             alertform.show();
-        }
-
-
 
 
     }
-
 
 
     public void alerthide(){
@@ -374,17 +498,18 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-//
-//       Fragment fragment1 = null;
+
+
 
         employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
 
         String empId = obj.getName();
+        String emailselected = obj.getEmail();
+        String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
 
-//         fragment1 = new rateemployee ();
-//
+
 //        Bundle args = new Bundle();
 //        args.putString("employeename", empId);
 //        fragment1.setArguments(args);
@@ -393,8 +518,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         CharSequence text = empId;
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+
 //
 //        if(fragment1 != null){
 //            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -403,11 +527,21 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 //        }
 
 
+        if(!emailselected.equals(useremail)) {
 
-        Intent nextpage = new Intent(getActivity(),selectactivityrate.class);
-        nextpage.putExtra("employeename",empId);
-        startActivity(nextpage);
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
 
+            Intent nextpage = new Intent(getActivity(), selectactivityrate.class);
+            nextpage.putExtra("employeename", empId);
+            nextpage.putExtra("division",obj.getDivision());
+            nextpage.putExtra("staffid",obj.getStaffid());
+            startActivity(nextpage);
+        }else{
+            Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
+            toast2.show();
+
+        }
      //   intent.putExtra("STATE", empId);
 
 

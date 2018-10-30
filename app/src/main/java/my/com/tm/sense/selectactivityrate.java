@@ -5,28 +5,45 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class selectactivityrate extends AppCompatActivity {
 
     TextView selectecsmiley;
-    String employeename;
+    String employeename,division,staffid;
+    String activityselected = "";
+    String remarkactivitystr = "";
+    public static selectactivityrate myactivitymain;
+    public static selectactivityrate getInstance() {
+
+        return myactivitymain;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectactivityrate);
 
 
+
+
+
         Intent i = getIntent();
         employeename = i.getStringExtra("employeename");
+        division = i.getStringExtra("division");
+        staffid = i.getStringExtra("staffid");
 
 
+        TextView titlepage = (TextView)findViewById(R.id.tittle);
+        titlepage.setText("Please Select Activity For "+employeename);
 
          selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
 
-        selectecsmiley.setText(employeename);
+
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
 
@@ -51,31 +68,35 @@ public class selectactivityrate extends AppCompatActivity {
 
 //                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 
-                        selectecsmiley.setText("You Have selected level 1");
-
+                        selectecsmiley.setText("You Have selected call Acivity");
+                        activityselected = "call";
 
 
                         break;
                     case R.id.imagetoggle2:
 
-                        selectecsmiley.setText("You Have selected level 2");
+                        selectecsmiley.setText("You Have selected Email activity");
+                        activityselected = "email";
 
                         break;
 
                     case R.id.imagetoggle3:
-                        selectecsmiley.setText("You Have selected level 3");
+                        selectecsmiley.setText("You Have selected Meeting Activity");
+                        activityselected = "meeting";
 
                         break;
 
                     case R.id.imagetoggle4:
-                        selectecsmiley.setText("You Have selected level 4");
+                        selectecsmiley.setText("You Have selected Workshop Activity");
+                        activityselected = "workshop";
 
                         // Ninjas rule
                         break;
 
 
                     case R.id.imagetoggle5:
-                        selectecsmiley.setText("You Have selected level 5");
+                        selectecsmiley.setText("You Have selected Others");
+                        activityselected = "others";
 
                         // Ninjas rule
                         break;
@@ -96,14 +117,38 @@ public class selectactivityrate extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent nextpage = new Intent(getApplicationContext(),rateactivity.class);
-                nextpage.putExtra("employeename",employeename);
-                startActivity(nextpage);
+                final EditText remarkactitivty = (EditText)findViewById(R.id.remarkactitivty);
+                remarkactivitystr =  remarkactitivty.getText().toString();
+
+                if(!activityselected.isEmpty() && !remarkactivitystr.isEmpty()) {
+
+                    Toast toast2 = Toast.makeText(getApplicationContext(), activityselected, Toast.LENGTH_SHORT);
+                    toast2.show();
+
+                    Intent nextpage = new Intent(getApplicationContext(), rateactivity.class);
+                    nextpage.putExtra("employeename", employeename);
+                    nextpage.putExtra("activity", activityselected);
+                    nextpage.putExtra("remarkactivity", remarkactivitystr);
+                    nextpage.putExtra("division", division);
+                    nextpage.putExtra("staffid", staffid);
+                    startActivity(nextpage);
+                }else{
+
+
+                    Toast toast2 = Toast.makeText(getApplicationContext(), "Please Select Your Activity and Remark cannot be Empty", Toast.LENGTH_SHORT);
+                    toast2.show();
+                }
 
             }
         });
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        finish();
     }
 }

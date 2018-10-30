@@ -7,6 +7,7 @@
 
 <TextView
     android:layout_width="match_parent"
+    android:id="@+id/tittle"
     android:layout_height="0dp"
     android:layout_weight="0.1"
     android:text="Please Select Activity"
@@ -84,7 +85,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
-        android:background="@color/light_orange" />
+        android:background="@color/light_orange"
+        android:minLines="5"
+        android:id="@+id/remarkactitivty"
+        android:layout_gravity="top|left"
+        android:hint="Enter your remark here"/>
 
     <Button
         android:id="@+id/gotoratebutton"

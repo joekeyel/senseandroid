@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -6,7 +7,8 @@
     <SearchView
         android:id="@+id/searchemployee"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:queryHint="Employee name, Email"/>
 
 
     <LinearLayout
@@ -42,9 +44,9 @@
 
         <ListView
             android:id="@+id/list"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
 
 
     </LinearLayout>
