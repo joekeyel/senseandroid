@@ -13,12 +13,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +41,7 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
     private List<employeemodel> orig;
     private int resource;
     private LayoutInflater inflator;
+    RequestQueue rq;
 
     public employeeadaptor(Context context, int resource, List<employeemodel> objects) {
         super(context, resource, objects);
@@ -115,6 +125,8 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         TextView email;
         TextView division;
         TextView staffid;
+        TextView averagerate;
+        TextView countrater;
         final ImageView image;
 
         name = (TextView)convertView.findViewById(R.id.employeename);
@@ -122,6 +134,8 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         division = (TextView)convertView.findViewById(R.id.employeediv);
         staffid = (TextView)convertView.findViewById(R.id.employeestaffid);
         image = (ImageView)convertView.findViewById(R.id.imageViewrow);
+        averagerate = (TextView)convertView.findViewById(R.id.averagerating);
+        countrater = (TextView) convertView.findViewById(R.id.totalrater);
 
         name.setText(ttmodellist.get(position).getName());
         email.setText(ttmodellist.get(position).getEmail());
@@ -160,6 +174,41 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         });
 
 
+        rq = Volley.newRequestQueue(getContext());
+        sendrequest1(averagerate,countrater,ttmodellist.get(position).getEmail());
+
+
         return convertView;
+    }
+
+    public void sendrequest1(final TextView avg, final TextView rater, String email){
+
+
+
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest
+                (Request.Method.GET,Config.URL_GET_RATING+"?email="+email , null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            String avgrate = response.getString("average");
+                            String numberofrater = response.getString("numberofrater");
+
+                            avg.setText("Average Rating: "+avgrate);
+                            rater.setText("Number Of Rater: "+numberofrater);
+
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        rq.add(jsonObjectRequest);
     }
 }

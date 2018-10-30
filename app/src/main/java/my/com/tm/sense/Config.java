@@ -21,5 +21,5 @@ public class Config {
     public static final String URL_IPMSANBlocklist_perstate = "http://58.27.84.166/mcconline/MCC%20Online%20V3/decom/totalcablist_blocked_perstate.php";
 
 
-
+    public static final String URL_GET_RATING = "http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/getuserrating.php";
 }

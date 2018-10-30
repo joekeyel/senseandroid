@@ -19,6 +19,8 @@ public class selectactivityrate extends AppCompatActivity {
     String activityselected = "";
     String remarkactivitystr = "";
     public static selectactivityrate myactivitymain;
+    private String emailselected;
+
     public static selectactivityrate getInstance() {
 
         return myactivitymain;
@@ -30,12 +32,13 @@ public class selectactivityrate extends AppCompatActivity {
 
 
 
-
+        myactivitymain = this;
 
         Intent i = getIntent();
         employeename = i.getStringExtra("employeename");
         division = i.getStringExtra("division");
         staffid = i.getStringExtra("staffid");
+        emailselected = i.getStringExtra("email");
 
 
         TextView titlepage = (TextView)findViewById(R.id.tittle);
@@ -131,6 +134,7 @@ public class selectactivityrate extends AppCompatActivity {
                     nextpage.putExtra("remarkactivity", remarkactivitystr);
                     nextpage.putExtra("division", division);
                     nextpage.putExtra("staffid", staffid);
+                    nextpage.putExtra("email", emailselected);
                     startActivity(nextpage);
                 }else{
 

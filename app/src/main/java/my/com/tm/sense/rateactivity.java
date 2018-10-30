@@ -22,13 +22,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class rateactivity extends AppCompatActivity {
 
     String activity,activityremark,employeename,division,staffid,rating,ratingremark;
     String JSON_RESULT;
     public static rateactivity myactivitymain;
+    private String emailselected;
+
     public static rateactivity getInstance() {
 
         return myactivitymain;
@@ -46,6 +61,9 @@ public class rateactivity extends AppCompatActivity {
          employeename = i.getStringExtra("employeename");
          staffid = i.getStringExtra("staffid");
          division = i.getStringExtra("division");
+         emailselected = i.getStringExtra("email");
+
+         rating = "";
 
         final TextView selectecsmiley = (TextView)findViewById(R.id.selectedsmiley);
         final EditText reasoncode = (EditText)findViewById(R.id.reasoncode);
@@ -146,7 +164,12 @@ public class rateactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                EditText remark = (EditText)findViewById(R.id.reasoncode);
+                final String remarkrating = remark.getText().toString();
 
+
+
+                if(!remarkrating.isEmpty() && !rating.isEmpty()){
                 LayoutInflater factory = LayoutInflater.from(rateactivity.this);
                 final View view = factory.inflate(R.layout.alertdialogupdate,null);
 
@@ -163,7 +186,7 @@ public class rateactivity extends AppCompatActivity {
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                                updaterating(employeename,division,staffid,email,uid,activity,activityremark,rating,ratingremark);
+                                updaterating(employeename,division,staffid,emailselected,uid,activity,activityremark,rating,remarkrating,email);
 
                             }
                         });
@@ -180,21 +203,26 @@ public class rateactivity extends AppCompatActivity {
                 alertDialog.show();
 
             }
+            else{
+
+                    Toast toast1 = Toast.makeText(getApplicationContext(), "Pls select your rating and remark", Toast.LENGTH_SHORT);
+                    toast1.show();
+
+                }
+
+            }
+
+
         });
 
     }
 
 
-    private void updaterating(final String employeename,String division,String staffid,String email,String uid,String activity,String activityremark,String rating,String ratingremark){
+    private void updaterating( String employeename,String division,String staffid,String email,String uid,String activity,String activityremark,String rating,String ratingremark,String updatedby){
 
 
 
         class insertuserrating extends AsyncTask<String,Void,String> {
-
-            ProgressDialog loading;
-
-
-
 
 
             @Override
@@ -202,7 +230,10 @@ public class rateactivity extends AppCompatActivity {
                 super.onPostExecute(s);
                 JSON_RESULT = s;
 
-                if(!s.isEmpty()){
+
+
+
+
 
 
 
@@ -225,7 +256,7 @@ public class rateactivity extends AppCompatActivity {
 
                     }
 
-                }
+
 
 
                 if(selectactivityrate.getInstance()!=null){
@@ -233,6 +264,7 @@ public class rateactivity extends AppCompatActivity {
                     selectactivityrate.getInstance().finish();
                 }
                 finish();
+
             }
 
             @Override
@@ -250,13 +282,70 @@ public class rateactivity extends AppCompatActivity {
                 map.put("rating",params[7]);
                 map.put("ratingremark",params[8]);
 
-                RequestHandler3 rh = new RequestHandler3();
-                String s = rh.sendPostRequest(Config.URL_EMPLOYEEINSERT_RATING,map);
-                return s;
+                StringBuilder sb = new StringBuilder();
+                try {
+                    URL url = new URL(Config.URL_EMPLOYEEINSERT_RATING);
+
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
+
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter bufferwriter = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                    String data = URLEncoder.encode("uid","UTF-8")+"="+URLEncoder.encode(params[4],"UTF-8")+
+
+                            "&"+URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(params[3],"UTF-8")+
+
+                            "&"+URLEncoder.encode("division","UTF-8")+"="+URLEncoder.encode(params[1],"UTF-8")+
+                            "&"+URLEncoder.encode("staffid","UTF-8")+"="+URLEncoder.encode(params[2],"UTF-8")+
+                            "&"+URLEncoder.encode("employeename","UTF-8")+"="+URLEncoder.encode(params[0], "UTF-8") +
+                            "&"+URLEncoder.encode("activity","UTF-8")+"="+URLEncoder.encode(params[5], "UTF-8")+
+                            "&"+URLEncoder.encode("activityremark","UTF-8")+"="+URLEncoder.encode(params[6], "UTF-8")+
+                            "&"+URLEncoder.encode("rating","UTF-8")+"="+URLEncoder.encode(params[7], "UTF-8")+
+                            "&"+URLEncoder.encode("ratingremark","UTF-8")+"="+URLEncoder.encode(params[8], "UTF-8")+
+                            "&"+URLEncoder.encode("updatedby","UTF-8")+"="+URLEncoder.encode(params[9], "UTF-8");
+
+                    bufferwriter.write(data);
+                    bufferwriter.flush();
+                    bufferwriter.close();
+                    os.close();
+
+                    InputStream is = conn.getInputStream();
+
+
+
+                    int responseCode = conn.getResponseCode();
+
+
+                    if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        sb = new StringBuilder();
+                        String response;
+                        //Reading server response
+                        while ((response = br.readLine()) != null){
+                            sb.append(response);
+                        }
+                    }
+
+                    is.close();
+
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
             }
+
+
         }
-        insertuserrating gj = new insertuserrating();
-        gj.execute(employeename,division,staffid,email,uid,activity,activityremark,rating,ratingremark);
+        insertuserrating gaban = new insertuserrating();
+        gaban.execute(employeename,division,staffid,email,uid,activity,activityremark,rating,ratingremark,updatedby);
     }
 
     @Override

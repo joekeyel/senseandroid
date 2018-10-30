@@ -536,6 +536,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
             nextpage.putExtra("employeename", empId);
             nextpage.putExtra("division",obj.getDivision());
             nextpage.putExtra("staffid",obj.getStaffid());
+            nextpage.putExtra("email",obj.getEmail());
             startActivity(nextpage);
         }else{
             Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
