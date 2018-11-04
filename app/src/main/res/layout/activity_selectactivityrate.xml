@@ -13,19 +13,21 @@
     android:text="Please Select Activity"
     android:layout_gravity="center"
     android:textAlignment="center"/>
+
     <RadioGroup
         android:id="@+id/toggleGroup"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.25"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
 
         <RadioButton
             android:id="@+id/imagetoggle1"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_weight="0.2"
             android:background="@drawable/call_selector"
             android:button="@android:color/transparent"
@@ -36,7 +38,7 @@
         <RadioButton
             android:id="@+id/imagetoggle2"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_weight="0.2"
             android:background="@drawable/email_selector"
             android:button="@android:color/transparent"
@@ -46,7 +48,7 @@
         <RadioButton
             android:id="@+id/imagetoggle3"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_weight="0.2"
             android:background="@drawable/meeting_selector"
             android:button="@android:color/transparent"
@@ -56,7 +58,7 @@
         <RadioButton
             android:id="@+id/imagetoggle4"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_weight="0.2"
             android:background="@drawable/workshop_selector"
             android:button="@android:color/transparent"
@@ -66,7 +68,7 @@
         <RadioButton
             android:id="@+id/imagetoggle5"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_weight="0.2"
             android:background="@drawable/others_selector"
             android:button="@android:color/transparent"
@@ -82,21 +84,25 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/remarkactitivty"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="@color/light_orange"
-        android:minLines="5"
-        android:id="@+id/remarkactitivty"
         android:layout_gravity="top|left"
-        android:hint="Enter your remark here"/>
+        android:layout_weight="0.3"
+        android:background="@drawable/strokeshape"
+        android:hint="Enter your remark here"
+        android:minLines="5"
+        android:padding="15dp"
+       android:layout_margin="10dp"
+        />
 
     <Button
         android:id="@+id/gotoratebutton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:background="@color/colorPrimary"
-        android:text="NEXT" />
+        android:background="@drawable/strokeshape2"
+        android:text="NEXT"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

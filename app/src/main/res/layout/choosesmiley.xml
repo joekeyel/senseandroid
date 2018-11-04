@@ -7,32 +7,26 @@
     android:orientation="vertical"
    >
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="0.1"
-    android:text="On scale 1 to 10, pls select ur rating"
-    android:textAlignment="center"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.5">
+        android:layout_weight="1.0"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@color/colorPrimary"></LinearLayout>
+            android:background="@color/cardview_light_background"></LinearLayout>
+
         <RadioGroup
             android:id="@+id/toggleGroup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.1"
+            android:background="@color/cardview_light_background"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <RadioButton
@@ -41,7 +35,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:background="@drawable/button_selector"
-                android:button="@android:color/transparent"
+                android:button="@color/cardview_light_background"
                 android:gravity="center_horizontal"
                 android:textOff="1"
                 android:textOn="1"
@@ -166,7 +160,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.1"
 
-            android:background="@color/colorPrimary"
+            android:background="@color/cardview_light_background"
             android:orientation="vertical">
 
             <TextView
@@ -244,31 +238,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@color/colorPrimary"></LinearLayout>
+            android:background="@color/cardview_light_background"></LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/selectedsmiley"
-        android:layout_weight="0.1"
-        android:textAlignment="center"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/reasoncode"
-        android:layout_weight="0.2"
-       android:background="@color/light_orange"
-        android:hint="Pls enter your remark here"
-        android:layout_marginBottom="5dp"/>
-
-    <Button
-        android:id="@+id/updaterating"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:background="@color/colorPrimary"
-        android:text="Submit" />
 </LinearLayout>

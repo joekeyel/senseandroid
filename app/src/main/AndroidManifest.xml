@@ -93,8 +93,7 @@
         <activity android:name=".selectactivityrate" />
         <activity android:name=".rateactivity" />
         <activity android:name=".scanqractivity" />
-        <activity android:name=".generateqrcode"></activity>
-
+        <activity android:name=".generateqrcode" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -105,6 +104,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".saveactitivty"></activity>
     </application>
 
 </manifest>

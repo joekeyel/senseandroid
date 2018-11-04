@@ -75,6 +75,8 @@ public class selectactivityrate extends AppCompatActivity {
                         activityselected = "call";
 
 
+
+
                         break;
                     case R.id.imagetoggle2:
 
