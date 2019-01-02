@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.scanimagegal:
 
 
-               fragment = new generateqrcode();
+               fragment = new generateqrcodestart();
                 break;
 
 

@@ -1,7 +1,10 @@
 package my.com.tm.sense;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -10,7 +13,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +52,7 @@ import static android.graphics.Color.WHITE;
 public class editprofile extends Fragment {
 
 
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     ImageView imageView;
     View myView;
 
@@ -94,32 +100,9 @@ public class editprofile extends Fragment {
 
     public void selectgallerywall1() {
 
-
-
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-
-        // Perform action on click
-        Intent camera_intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        File file = getFile(uid );
-
-        Uri apkURI = FileProvider.getUriForFile(
-                this.getActivity(),
-                this.getActivity()
-                        .getPackageName() + ".provider", file);
-
-
-        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
-
-                //photoURI
-                apkURI
-
-        );
-
-
-        startActivityForResult(camera_intent, 1);
-
+        requestPermissions(
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                3);
 
 
 
@@ -128,33 +111,100 @@ public class editprofile extends Fragment {
     public void selectcamera() {
 
 
-   String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        // Perform action on click
-        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = getFile(uid );
-
-        Uri apkURI = FileProvider.getUriForFile(
-                this.getActivity(),
-                this.getActivity()
-                        .getPackageName() + ".provider", file);
-
-
-        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
-
-                //photoURI
-                apkURI
-
-        );
-
-
-        startActivityForResult(camera_intent, 2);
+        requestPermissions(
+                new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                2);
 
 
 
 
+
+
+        }
+
+
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+
+
+        switch (requestCode) {
+            case 2: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    // Perform action on click
+                    Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    File file = getFile(uid );
+
+                    Uri apkURI = FileProvider.getUriForFile(
+                            this.getActivity(),
+                            this.getActivity()
+                                    .getPackageName() + ".provider", file);
+
+
+                    camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
+
+                            //photoURI
+                            apkURI
+
+                    );
+
+                    startActivityForResult(camera_intent, 2);
+
+
+
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            case 3:{
+
+
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+
+                // Perform action on click
+                Intent camera_intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                File file = getFile(uid );
+
+                Uri apkURI = FileProvider.getUriForFile(
+                        this.getActivity(),
+                        this.getActivity()
+                                .getPackageName() + ".provider", file);
+
+
+                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
+
+                        //photoURI
+                        apkURI
+
+                );
+
+
+                startActivityForResult(camera_intent, 1);
+
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
     }
-
 
 
     public void generatebarcode(String queryitem) {

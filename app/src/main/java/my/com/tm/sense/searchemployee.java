@@ -1,7 +1,9 @@
 package my.com.tm.sense;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -52,7 +54,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -70,6 +74,10 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     private String JSON_RESULT;
     private AlertDialog.Builder alertDialogform;
     AlertDialog alertform = null;
+
+    private ArrayList<employeemodel> employeelist = new ArrayList<>();
+    private String activity,activityremark;
+
 
 
     @Override
@@ -556,27 +564,11 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     public void selectgallerywall1() {
 
 
+        requestPermissions(
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
+                3);
 
 
-        // Perform action on click
-        Intent camera_intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        File file = getFile("scanimage");
-
-        Uri apkURI = FileProvider.getUriForFile(
-                searchemployee.this.getActivity(),
-                searchemployee.this.getActivity()
-                        .getPackageName() + ".provider", file);
-
-
-        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
-
-                //photoURI
-                apkURI
-
-        );
-
-
-        startActivityForResult(camera_intent, 1);
 
 
     }
@@ -597,6 +589,44 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         return image_file;
 
 
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+
+
+        switch (requestCode) {
+
+
+            case 3:{
+
+                // Perform action on click
+                Intent camera_intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                File file = getFile("scanimage");
+
+                Uri apkURI = FileProvider.getUriForFile(
+                        searchemployee.this.getActivity(),
+                        searchemployee.this.getActivity()
+                                .getPackageName() + ".provider", file);
+
+
+                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,
+
+                        //photoURI
+                        apkURI
+
+                );
+
+
+                startActivityForResult(camera_intent, 1);
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
     }
 
 
@@ -675,9 +705,23 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
                 String scantexttr = result.getText();
-                Intent nextpage = new Intent(getActivity(),selectactivityrate.class);
-                nextpage.putExtra("employeename",scantexttr);
-                startActivity(nextpage);
+
+                List<String> qrlist = Arrays.asList(scantexttr.split(","));
+
+                // ArrayList<String> qrlist = (ArrayList<String>)Arrays.asList(scantexttr.split(","));
+
+
+
+                String email = qrlist.get(0);
+                activity = qrlist.get(1);
+                activityremark = qrlist.get(2);
+                String employeename = qrlist.get(3);
+                String staffid = qrlist.get(4);
+                String division = qrlist.get(5);
+
+                Toast.makeText(getActivity(), scantexttr, Toast.LENGTH_SHORT).show();
+
+                getJSON2(email);
 
             }
             else{
@@ -689,5 +733,117 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
     }
+
+    private void getJSON2(final String query){
+        class GetJSON extends AsyncTask<Void,Void,String> {
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+//                loading = ProgressDialog.show(getBaseContext(),"Loading Data","Wait...",false,false);
+                // loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                //   loading.dismiss();
+                //   loading.setIndeterminateDrawable(getResources().getDrawable(R.drawable.dashb));
+                JSON_STRING = s;
+                //  showData();
+                showEmployee2();
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                RequestHandler3 rh = new RequestHandler3();
+                String s = rh.sendGetRequest(Config.URL_EMPLOYEE+"?query="+query);
+                return s;
+            }
+        }
+        GetJSON gj = new GetJSON();
+        gj.execute();
+    }
+
+
+    private void showEmployee2(){
+
+
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(JSON_STRING);
+            JSONArray result = jsonObject.getJSONArray("employeelist");
+
+            for(int i = 0; i<result.length(); i++){
+                JSONObject jo = result.getJSONObject(i);
+                String a = jo.getString("employeename");
+                String b = jo.getString("email");
+                String c = jo.getString("staffid");
+                String d = jo.getString("division");
+                String e = jo.getString("uid");
+
+
+
+
+
+                employeemodel employeeeobject = new employeemodel();
+                employeeeobject.setName(a);
+                employeeeobject.setEmail(b);
+                employeeeobject.setDivision(d);
+                employeeeobject.setStaffid(c);
+                employeeeobject.setUid(e);
+
+
+
+                employeelist.add(employeeeobject);
+
+
+            }
+
+            if(employeelist.size()>0) {
+
+
+                if(!FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(employeelist.get(0).getEmail())){
+
+                    Intent nextpage = new Intent(getActivity(), rateactivity.class);
+                    nextpage.putExtra("employeename", employeelist.get(0).getName());
+                    nextpage.putExtra("email", employeelist.get(0).getEmail());
+                    nextpage.putExtra("division", employeelist.get(0).getDivision());
+                    nextpage.putExtra("staffid", employeelist.get(0).getStaffid());
+                    nextpage.putExtra("division", employeelist.get(0).getDivision());
+                    nextpage.putExtra("staffid", employeelist.get(0).getStaffid());
+                    nextpage.putExtra("activity", activity);
+                    nextpage.putExtra("remarkactivity", activityremark);
+
+
+                    startActivity(nextpage);
+                }
+                else{
+
+                    Toast.makeText(getActivity(), "U Cannot Rate Yourself", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+            else
+            {
+
+                Toast.makeText(getActivity(), "User Not Found", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
 
 }

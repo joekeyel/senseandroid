@@ -18,9 +18,9 @@ public class selectactivityrate extends AppCompatActivity {
     String employeename,division,staffid;
     String activityselected = "";
     String remarkactivitystr = "";
-    public static selectactivityrate myactivitymain;
-    private String emailselected;
 
+    private String emailselected;
+    public static selectactivityrate myactivitymain;
     public static selectactivityrate getInstance() {
 
         return myactivitymain;

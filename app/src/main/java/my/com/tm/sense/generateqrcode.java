@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,26 +45,37 @@ import java.io.IOException;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
-public class generateqrcode extends Fragment {
+public class generateqrcode extends AppCompatActivity {
 
 
     ImageView imageView;
-    View myView;
-
-
-
+    String activity,activityremark,employeename,staffid,division;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.activity_generateqrcode, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_generateqrcode);
+
+
+        Intent i = getIntent();
+        activity = i.getStringExtra("activity");
+        activityremark = i.getStringExtra("remarkactivity");
+        employeename = i.getStringExtra("employeename");
+        staffid = i.getStringExtra("staffid");
+        division = i.getStringExtra("division");
+
+
 
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-     String uid = currentFirebaseUser.getUid();
-     String email = currentFirebaseUser.getEmail();
-     final String query = "?email="+email+"&uid="+uid;
+        String uid = currentFirebaseUser.getUid();
+        String email = currentFirebaseUser.getEmail();
 
-        imageView = (ImageView)myView.findViewById(R.id.scanimage);
-        Button selectimage = (Button)myView.findViewById(R.id.findimage);
+
+        final String query = email+","+ activity+","+ activityremark+","+ employeename+","+ staffid+","+ division;
+
+        imageView = (ImageView)findViewById(R.id.scanimage);
+        Button selectimage = (Button)findViewById(R.id.findimage);
 
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +86,9 @@ public class generateqrcode extends Fragment {
             }
         });
 
-        return myView;
     }
+
+
 
     public void selectgallerywall1(String queryitem) {
 
@@ -138,5 +152,10 @@ public class generateqrcode extends Fragment {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+        this.finish();
+    }
 }
