@@ -108,7 +108,7 @@ public class scanqractivity extends AppCompatActivity implements ZXingScannerVie
         String staffid = qrlist.get(4);
         String division = qrlist.get(5);
 
-        Toast.makeText(this, scantexttr, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, scantexttr, Toast.LENGTH_SHORT).show();
 
         getJSON(email);
 

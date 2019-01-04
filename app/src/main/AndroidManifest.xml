@@ -24,7 +24,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/senseicon"
         android:label="Sense"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/senseicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity

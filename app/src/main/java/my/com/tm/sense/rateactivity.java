@@ -66,8 +66,12 @@ public class rateactivity extends AppCompatActivity {
 
          rating = "";
 
+         String text = "Welcome ''"+FirebaseAuth.getInstance().getCurrentUser().getEmail()+"'' to "+employeename+" Survey Portal!\n" +
+                 "Are you happy to work with me in the last engagement?\n" +
+                 "Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)";
 
-
+         TextView desc = (TextView)findViewById(R.id.description);
+         desc.setText(text);
 
         RadioGroup radioGroup = (RadioGroup)  findViewById(R.id.toggleGroup);
 

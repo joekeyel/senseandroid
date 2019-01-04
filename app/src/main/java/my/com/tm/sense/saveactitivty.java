@@ -12,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -52,58 +54,73 @@ public class saveactitivty extends AppCompatActivity {
           division = i.getStringExtra("division");
           emailselected = i.getStringExtra("email");
 
+        TextView desc = (TextView)findViewById(R.id.description);
+
 
 
 
         if(rating.equals("1")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.one_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
         }
 
         if(rating.equals("2")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.two_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
         }
 
         if(rating.equals("3")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.three_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
+
         }
 
         if(rating.equals("4")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.four_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
         }
 
         if(rating.equals("5")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.five_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
         }
 
         if(rating.equals("6")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.six_smiley);
+            desc.setText("I am sorry to disappoint you. I would love to know how can I improve on what I am doing?");
         }
 
         if(rating.equals("7")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.seven_smiley);
+            desc.setText("Thanks for taking the time to share your feedback with me. If I could do just one thing to make you extremely satisfied, what would it be?");
         }
 
 
          if(rating.equals("8")) {
              ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
              imagesmiley.setImageResource(R.mipmap.eight_smiley);
+             desc.setText("Thanks for taking the time to share your feedback with me. If I could do just one thing to make you extremely satisfied, what would it be?");
+
          }
 
         if(rating.equals("9")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.nine_smiley);
+            desc.setText("Awesome, thanks for your feedback! Would you tell me why you feel that way?");
+
         }
 
         if(rating.equals("10")) {
             ImageView imagesmiley = (ImageView) findViewById(R.id.smileyimage);
             imagesmiley.setImageResource(R.mipmap.ten_smiley);
+            desc.setText("Awesome, thanks for your feedback! Would you tell me why you feel that way?");
         }
 
 

@@ -7,10 +7,23 @@
     android:orientation="vertical"
    >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:text="Welcome ''Hasanul Isyraf Bin Abd Azis'' to My Survey Portal!
+Are you happy to work with me in the last engagement?
+Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)"
+        android:textAlignment="center"
+        android:id="@+id/description"
+        android:background="@drawable/strokeshape"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textSize="12dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.0"
+        android:layout_weight="0.85"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -30,99 +43,15 @@
 
 
             <RadioButton
-                android:id="@+id/imagetoggle1"
+                android:id="@+id/imagetoggle10"
                 android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/button_selector10"
                 android:button="@color/cardview_light_background"
                 android:gravity="center_horizontal"
                 android:textOff="1"
                 android:textOn="1"
-
-                />
-
-            <RadioButton
-                android:id="@+id/imagetoggle2"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector2"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="2"
-                android:textOn="2" />
-
-            <RadioButton
-                android:id="@+id/imagetoggle3"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector3"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="3"
-                android:textOn="3" />
-
-            <RadioButton
-                android:id="@+id/imagetoggle4"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector4"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="4"
-                android:textOn="4" />
-
-            <RadioButton
-                android:id="@+id/imagetoggle5"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector5"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="5"
-                android:textOn="5" />
-
-
-            <RadioButton
-                android:id="@+id/imagetoggle6"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector6"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="6"
-                android:textOn="6"
-
-                />
-
-            <RadioButton
-                android:id="@+id/imagetoggle7"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector7"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="6"
-                android:textOn="6"
-
-                />
-
-            <RadioButton
-                android:id="@+id/imagetoggle8"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/button_selector8"
-                android:button="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:textOff="6"
-                android:textOn="6"
 
                 />
 
@@ -134,17 +63,101 @@
                 android:background="@drawable/button_selector9"
                 android:button="@android:color/transparent"
                 android:gravity="center_horizontal"
+                android:textOff="2"
+                android:textOn="2" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle8"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector8"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="3"
+                android:textOn="3" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle7"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector7"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="4"
+                android:textOn="4" />
+
+            <RadioButton
+                android:id="@+id/imagetoggle6"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector6"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="5"
+                android:textOn="5" />
+
+
+            <RadioButton
+                android:id="@+id/imagetoggle5"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector5"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
                 android:textOff="6"
                 android:textOn="6"
 
                 />
 
             <RadioButton
-                android:id="@+id/imagetoggle10"
+                android:id="@+id/imagetoggle4"
                 android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
-                android:background="@drawable/button_selector10"
+                android:background="@drawable/button_selector4"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
+
+                />
+
+            <RadioButton
+                android:id="@+id/imagetoggle3"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector3"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
+
+                />
+
+            <RadioButton
+                android:id="@+id/imagetoggle2"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector2"
+                android:button="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:textOff="6"
+                android:textOn="6"
+
+                />
+
+            <RadioButton
+                android:id="@+id/imagetoggle"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/button_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center_horizontal"
                 android:textOff="6"
@@ -168,56 +181,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
 
-                android:text="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="4" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="7" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-
-                android:text="8" />
+                android:text="10" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -231,13 +195,62 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
 
-                android:text="10" />
+                android:text="8" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+
+                android:text="1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.15"
             android:background="@color/cardview_light_background"></LinearLayout>
 
     </LinearLayout>

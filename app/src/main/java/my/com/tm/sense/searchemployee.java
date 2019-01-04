@@ -700,8 +700,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
             if(result != null) {
                 String contents = result.getText();
 
-                Toast toast = Toast.makeText(getActivity(), contents, Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(getActivity(), contents, Toast.LENGTH_SHORT);
+//                toast.show();
 
 
                 String scantexttr = result.getText();
@@ -719,7 +719,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 String staffid = qrlist.get(4);
                 String division = qrlist.get(5);
 
-                Toast.makeText(getActivity(), scantexttr, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), scantexttr, Toast.LENGTH_SHORT).show();
 
                 getJSON2(email);
 

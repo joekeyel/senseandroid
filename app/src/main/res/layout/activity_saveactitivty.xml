@@ -8,12 +8,24 @@
     android:orientation="vertical"
     tools:context=".saveactitivty">
 
-
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top|left"
+        android:layout_margin="10dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/strokeshape"
+        android:text="Awesome, thanks for your feedback! Would you tell me why you feel that way?"
+        android:minLines="5"
+        android:padding="15dp"
+        android:textAlignment="center"
+        android:textColor="#000000"/>
     <ImageView
         android:id="@+id/smileyimage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.4"
         android:src="@mipmap/eight_smiley" />
 
     <EditText

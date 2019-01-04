@@ -10,12 +10,35 @@
     >
 
 
+    <!--<TextView-->
+        <!--android:id="@+id/description"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Welcome ''Hasanul Isyraf Bin Abd Azis'' to My Survey Portal!-->
+<!--Are you happy to work with me in the last engagement?-->
+<!--Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textSize="7sp" />-->
+   <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Hasanul"-->
+       <!--android:textAlignment="center"-->
+    <!--android:id="@+id/employeename"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="email"-->
+        <!--android:id="@+id/emailuser"-->
+        <!--android:textAlignment="center"/>-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.6">
+        android:layout_weight="0.5">
 
         <LinearLayout
             android:layout_width="0dp"
