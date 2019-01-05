@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class generateqrcodestart extends Fragment {
 
     TextView selectecsmiley;
@@ -35,12 +37,12 @@ public class generateqrcodestart extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.activity_selectactivityrate, container, false);
+        myView = inflater.inflate(R.layout.activity_selectactivityrate_qrcode, container, false);
 
         myactivitymain = this;
 
         TextView titlepage = (TextView)myView.findViewById(R.id.tittle);
-        titlepage.setText("Please Select Activity For "+employeename);
+        titlepage.setText("Please Select Activity For "+FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         selectecsmiley = (TextView)myView.findViewById(R.id.selectedsmiley);
 

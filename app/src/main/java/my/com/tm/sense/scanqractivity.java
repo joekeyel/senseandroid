@@ -100,19 +100,21 @@ public class scanqractivity extends AppCompatActivity implements ZXingScannerVie
        // ArrayList<String> qrlist = (ArrayList<String>)Arrays.asList(scantexttr.split(","));
 
 
+        if(qrlist.size() == 3) {
+            String email = qrlist.get(0);
+            activity = qrlist.get(1);
+            activityremark = qrlist.get(2);
 
-        String email = qrlist.get(0);
-         activity = qrlist.get(1);
-         activityremark = qrlist.get(2);
-        String employeename = qrlist.get(3);
-        String staffid = qrlist.get(4);
-        String division = qrlist.get(5);
 
 //        Toast.makeText(this, scantexttr, Toast.LENGTH_SHORT).show();
 
-        getJSON(email);
+            getJSON(email);
 
+        }else{
 
+            Toast toast = Toast.makeText(getApplicationContext(), "Image is not readable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
         mScannerView.stopCamera();
         finish();

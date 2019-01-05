@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:text="You can sent this QR Code to rate you through this App"
+        android:text="You can share this QR Code to rate you through this App"
         android:padding="10dp"/>
 
     <Button

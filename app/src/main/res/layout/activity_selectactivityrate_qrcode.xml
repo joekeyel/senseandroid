@@ -99,9 +99,9 @@
         android:id="@+id/gotoratebutton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         android:layout_weight="0.1"
         android:background="@drawable/strokeshape2"
-        android:text="NEXT"
-        android:layout_margin="10dp"/>
+        android:text="Generate QR" />
 
 </LinearLayout>

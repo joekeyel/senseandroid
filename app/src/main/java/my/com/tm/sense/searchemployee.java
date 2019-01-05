@@ -710,19 +710,20 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
                 // ArrayList<String> qrlist = (ArrayList<String>)Arrays.asList(scantexttr.split(","));
 
+                if(qrlist.size() == 3) {
+                    String email = qrlist.get(0);
+                    activity = qrlist.get(1);
+                    activityremark = qrlist.get(2);
 
 
-                String email = qrlist.get(0);
-                activity = qrlist.get(1);
-                activityremark = qrlist.get(2);
-                String employeename = qrlist.get(3);
-                String staffid = qrlist.get(4);
-                String division = qrlist.get(5);
+                    //  Toast.makeText(getActivity(), scantexttr, Toast.LENGTH_SHORT).show();
 
-              //  Toast.makeText(getActivity(), scantexttr, Toast.LENGTH_SHORT).show();
+                    getJSON2(email);
+                }else{
 
-                getJSON2(email);
-
+                    Toast toast = Toast.makeText(getActivity(), "Image is not readable", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
             else{
 

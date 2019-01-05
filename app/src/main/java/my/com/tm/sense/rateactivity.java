@@ -98,7 +98,7 @@ public class rateactivity extends AppCompatActivity {
                 nextpage.putExtra("email", emailselected);
 
                 switch(checkedId) {
-                    case R.id.imagetoggle1:
+                    case R.id.imagetoggle:
 
 //                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 

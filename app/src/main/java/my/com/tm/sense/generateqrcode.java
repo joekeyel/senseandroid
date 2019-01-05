@@ -49,7 +49,7 @@ public class generateqrcode extends AppCompatActivity {
 
 
     ImageView imageView;
-    String activity,activityremark,employeename,staffid,division;
+    String activity,activityremark;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +60,7 @@ public class generateqrcode extends AppCompatActivity {
         Intent i = getIntent();
         activity = i.getStringExtra("activity");
         activityremark = i.getStringExtra("remarkactivity");
-        employeename = i.getStringExtra("employeename");
-        staffid = i.getStringExtra("staffid");
-        division = i.getStringExtra("division");
+
 
 
 
@@ -72,7 +70,7 @@ public class generateqrcode extends AppCompatActivity {
         String email = currentFirebaseUser.getEmail();
 
 
-        final String query = email+","+ activity+","+ activityremark+","+ employeename+","+ staffid+","+ division;
+        final String query = email+","+ activity+","+ activityremark;
 
         imageView = (ImageView)findViewById(R.id.scanimage);
         Button selectimage = (Button)findViewById(R.id.findimage);
@@ -85,6 +83,20 @@ public class generateqrcode extends AppCompatActivity {
                 selectgallerywall1(query);
             }
         });
+
+
+//straght generate code
+
+        try {
+            // generate a 150x150 QR code
+            Bitmap bm = encodeAsBitmap(query);
+
+            if(bm != null) {
+                imageView.setImageBitmap(bm);
+            }
+        } catch (WriterException e) { //eek }
+
+        }
 
     }
 
