@@ -33,10 +33,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="SEARCH"
+                android:text="Search Employee Name"
                 android:textColor="#000000"
-                android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textSize="14dp"
+
+                android:background="@drawable/strokeshape_header"
+                android:drawableStart="@drawable/searchusericon"
+                android:drawableLeft="@drawable/searchusericon"
+                android:padding="5dp"/>
 
 
         </LinearLayout>
@@ -60,25 +64,29 @@
 
         <Button
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="137dp"
+            android:layout_height="53dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/shaped"
+            android:background="@drawable/strokeshape"
+            android:drawableStart="@mipmap/qricon2"
+            android:drawableLeft="@mipmap/qricon2"
             android:padding="5dp"
-            android:text="SCAN QR CAMERA"
-            android:textColor="#ffffff" />
+            android:text="CAM"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/scangallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="137dp"
+            android:layout_height="53dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/shaped"
+            android:layout_margin="10dp"
+            android:background="@drawable/strokeshape"
+            android:drawableStart="@mipmap/qricon"
+            android:drawableLeft="@mipmap/qricon"
             android:padding="5dp"
-            android:text="SCAN QR IMAGE"
-            android:textColor="#ffffff" />
+            android:text="IMAGE"
+            android:textColor="#000000" />
 
     </LinearLayout>
 </LinearLayout>

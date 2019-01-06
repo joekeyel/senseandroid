@@ -36,6 +36,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="scalingPercent" value="67" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -47,10 +48,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/meeting_not_selected/android/playstore-icon.png" />
-                                      <entry key="foregroundLayerName" value="meeting_not_selected_layer" />
-                                      <entry key="outputName" value="meeting_not_selected" />
+                                      <entry key="backgroundLayerName" value="qrbelakang2" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/icons8-qr-code-50.png" />
+                                      <entry key="foregroundLayerName" value="qrdepan2" />
+                                      <entry key="outputName" value="qricon2" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -82,6 +83,44 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_supervisor_account_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="color" value="ffb14d" />
+                            <entry key="outputName" value="searchusericon" />
+                            <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>
                       </PersistentState>
