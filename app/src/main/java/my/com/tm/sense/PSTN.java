@@ -172,13 +172,6 @@ public class PSTN extends Fragment implements View.OnClickListener  {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.notification_action);
-        menuItem.setIcon(Converter.convertLayoutToImage(getActivity(),2,R.drawable.notification_icon));
-
-
-        MenuItem menuItem2 = menu.findItem(R.id.cart_action);
-        menuItem2.setIcon(Converter.convertLayoutToImage(getActivity(),2,R.drawable.shopchart_icon));
-
 
     }
 

@@ -503,7 +503,6 @@ public class editprofile extends Fragment {
                 //
                 // le any errors
 
-                Toast.makeText(getActivity(), "Failed  To view image"+ imagename1+" "+exception , Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -3,14 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.codingmounrtain.addtocartbadgecount.MainActivity">
     <item
-        android:id="@+id/cart_action"
+        android:id="@+id/showinfo"
         android:orderInCategory="100"
-        android:title="cart"
-        app:showAsAction="always" />
+        android:title="info"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_menu_gallery"/>
 
-    <item
-        android:id="@+id/notification_action"
-        android:title="inbox"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
+
 </menu>

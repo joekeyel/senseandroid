@@ -7,19 +7,19 @@
     android:orientation="vertical"
    >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15"
-        android:text="Welcome ''Hasanul Isyraf Bin Abd Azis'' to My Survey Portal!
-Are you happy to work with me in the last engagement?
-Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)"
-        android:textAlignment="center"
-        android:id="@+id/description"
-        android:background="@drawable/strokeshape"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:textSize="11dp"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.15"-->
+        <!--android:text="Welcome ''Hasanul Isyraf Bin Abd Azis'' to My Survey Portal!-->
+<!--Are you happy to work with me in the last engagement?-->
+<!--Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)"-->
+        <!--android:textAlignment="center"-->
+        <!--android:id="@+id/description"-->
+        <!--android:background="@drawable/strokeshape"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:padding="10dp"-->
+        <!--android:textSize="11dp"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

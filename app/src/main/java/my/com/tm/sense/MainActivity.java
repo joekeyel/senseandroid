@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.setting:
-                fragment = new rateemployee();
+               // fragment = new rateemployee();
                 break;
             case R.id.profile:
 

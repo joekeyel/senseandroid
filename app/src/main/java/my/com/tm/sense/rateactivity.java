@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +48,7 @@ public class rateactivity extends AppCompatActivity {
     String JSON_RESULT;
     public static rateactivity myactivitymain;
     private String emailselected;
+    android.app.AlertDialog alert;
 
     public static rateactivity getInstance() {
 
@@ -66,12 +72,7 @@ public class rateactivity extends AppCompatActivity {
 
          rating = "";
 
-         String text = "Welcome ''"+FirebaseAuth.getInstance().getCurrentUser().getEmail()+"'' to "+employeename+" Survey Portal!\n" +
-                 "Are you happy to work with me in the last engagement?\n" +
-                 "Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)";
 
-         TextView desc = (TextView)findViewById(R.id.description);
-         desc.setText(text);
 
         RadioGroup radioGroup = (RadioGroup)  findViewById(R.id.toggleGroup);
 
@@ -104,9 +105,6 @@ public class rateactivity extends AppCompatActivity {
 
 
                         rating = "1";
-
-
-
                         nextpage.putExtra("rating", rating);
                         startActivity(nextpage);
 
@@ -191,10 +189,79 @@ public class rateactivity extends AppCompatActivity {
             }
         });
 
+        showalert();
+
 
     }
 
 
+
+
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_main, menu);
+
+            // return true so that the menu pop up is opened
+            return true;
+        }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch(item.getItemId())
+        {
+            case R.id.showinfo:
+
+                showalert();
+
+                break;
+
+        }
+        return true;
+    }
+
+    private void showalert() {
+
+        final android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(this);
+
+        alert = alertDialog.create();
+
+        LayoutInflater inflater1 = getLayoutInflater();
+        final View convertView1 = inflater1.inflate(R.layout.edit_approval_header, null);
+        alert.setCustomTitle(convertView1);
+
+        Button closed = (Button)convertView1.findViewById(R.id.closed);
+        closed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.dismiss();
+            }
+        });
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        // inflate the custom popup layout
+        final View convertView = inflater.inflate(R.layout.edit_approval, null);
+
+
+        String text = "Welcome ''"+FirebaseAuth.getInstance().getCurrentUser().getEmail()+"'' to "+employeename+" Survey Portal!\n" +
+                "Are you happy to work with me in the last engagement?\n" +
+                "Please rate from 0 (Extremely Difficult) to 10 (Extremely Easy)\n"+
+                "Activity:"+activity+"\n"+
+                "Description:"+activityremark;
+
+        TextView desc = (TextView)convertView.findViewById(R.id.description);
+        desc.setText(text);
+
+        alert.setView(convertView);
+        alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alert.show();
+
+    }
 
 
     @Override

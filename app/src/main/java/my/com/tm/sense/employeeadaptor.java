@@ -168,8 +168,10 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
                 //
                 // le any errors
 
-                Toast toast1 = Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT);
-                toast1.show();
+               // image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profileicon));
+
+//                Toast toast1 = Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT);
+//                toast1.show();
             }
         });
 
