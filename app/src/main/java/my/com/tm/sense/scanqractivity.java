@@ -55,7 +55,7 @@ public class scanqractivity extends AppCompatActivity implements ZXingScannerVie
         else{
 
             ViewGroup contentFrame = (ViewGroup) findViewById(R.id.content_frame);
-            mScannerView = new ZXingScannerView(this);
+            mScannerView = new ZXingScannerView(getBaseContext());
             contentFrame.addView(mScannerView);
 
         }
@@ -66,17 +66,29 @@ public class scanqractivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     public void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(this);
-        // You can optionally set aspect ratio tolerance level
-        // that is used in calculating the optimal Camera preview size
-        mScannerView.setAspectTolerance(0.2f);
-        mScannerView.startCamera();
-        mScannerView.setFlash(mFlash);
+
+if(mScannerView!= null) {
+    mScannerView.setResultHandler(this);
+    // You can optionally set aspect ratio tolerance level
+    // that is used in calculating the optimal Camera preview size
+    mScannerView.setAspectTolerance(0.2f);
+    mScannerView.startCamera();
+    mScannerView.setFlash(mFlash);
+}
     }
 
     @Override
     public void onPause() {
         super.onPause();
+
+        if(mScannerView != null){
+        mScannerView.stopCamera();
+    }}
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mScannerView.setResultHandler(null);//prevent Camera is being used after Camera.release() was called
         mScannerView.stopCamera();
     }
 
