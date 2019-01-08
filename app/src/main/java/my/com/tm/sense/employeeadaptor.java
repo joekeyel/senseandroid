@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.NetworkPolicy;
@@ -183,7 +184,7 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         return convertView;
     }
 
-    public void sendrequest1(final TextView avg, final TextView rater, String email){
+    public void sendrequest1(final TextView avg, final TextView rater, final String email){
 
 
 
@@ -195,8 +196,19 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
                             String avgrate = response.getString("average");
                             String numberofrater = response.getString("numberofrater");
 
-                            avg.setText("Average Rating: "+avgrate);
-                            rater.setText("Number Of Rater: "+numberofrater);
+
+                           if(email.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+
+
+                               avg.setText("Average Rating: "+avgrate);
+                               rater.setText("Number Of Rater: "+numberofrater);
+                           }else {
+
+                               avg.setVisibility(View.INVISIBLE);
+                               rater.setText("Number Of Rater: "+numberofrater);
+                           }
+
+
 
 
                         }catch (JSONException e){

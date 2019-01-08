@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
                 //
                 // le any errors
 
-                Toast.makeText(getApplicationContext(), "Failed  To view image"+ imagename1+" "+exception , Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Failed  To view image"+ imagename1+" "+exception , Toast.LENGTH_SHORT).show();
             }
         });
 
