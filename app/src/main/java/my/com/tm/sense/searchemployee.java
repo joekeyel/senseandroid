@@ -823,7 +823,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
                     startActivity(nextpage);
                 }
-                else{
+                if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(employeelist.get(0).getEmail())){
 
                     Toast.makeText(getActivity(), "U Cannot Rate Yourself", Toast.LENGTH_SHORT).show();
 

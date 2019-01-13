@@ -223,9 +223,9 @@ if(mScannerView!= null) {
 
                     startActivity(nextpage);
                 }
-                else{
+                if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(employeelist.get(0).getEmail())){
 
-                    Toast.makeText(this, "U Cannot Rate Yourself", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "U Cannot Rate Yourself", Toast.LENGTH_SHORT).show();
 
                 }
 
