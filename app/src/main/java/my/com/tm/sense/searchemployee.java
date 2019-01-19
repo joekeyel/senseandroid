@@ -44,6 +44,7 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,6 +81,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.search_employee_layout, container, false);
@@ -90,6 +92,9 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         String email = user.getEmail();
 
         registerUser(uid,email);
+
+
+
 
         listView = (ListView) myView.findViewById(R.id.list);
 
@@ -135,6 +140,9 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 return false;
             }
         });
+
+
+        getJSON(email);
 
 
         btnsearch = (Button)myView.findViewById(R.id.searchbutton);

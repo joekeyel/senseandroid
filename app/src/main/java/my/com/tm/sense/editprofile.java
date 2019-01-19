@@ -41,10 +41,16 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
@@ -55,6 +61,7 @@ public class editprofile extends Fragment {
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     ImageView imageView;
     View myView;
+    int serverResponseCode;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -137,8 +144,7 @@ public class editprofile extends Fragment {
             case 2: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! do the
-                    // calendar task you need to do.
+
 
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -275,12 +281,14 @@ public class editprofile extends Fragment {
 
 
         if(requestCode == 1){
+
+            final String path = Environment.getExternalStorageDirectory() +
+                    File.separator + "DCIM/" + uid+ ".jpg";
+
             if (data != null) {
                 Uri contentURI = data.getData();
 
 
-                final String path = Environment.getExternalStorageDirectory() +
-                        File.separator + "DCIM/" + uid+ ".jpg";
 
                 Bitmap bmp = null;
                 try {
@@ -372,6 +380,9 @@ public class editprofile extends Fragment {
             });
 
 
+
+
+
         }
 
 
@@ -458,6 +469,7 @@ public class editprofile extends Fragment {
             });
 
 
+
         }
     }
 
@@ -508,6 +520,9 @@ public class editprofile extends Fragment {
 
 
     }
+
+
+
 
 
 }
