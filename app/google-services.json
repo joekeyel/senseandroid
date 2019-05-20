@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "443378748712-kf2mkgiaobgu2pj1v64c4rr3j0ndqqmc.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "443378748712-bmb0e5c9hlmdvovh14nmp3bchmb5sdug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "my.com.tm.sense",
+            "certificate_hash": "164a2a3eea6b21405938f503fd89e9f9e13b1364"
+          }
         }
       ],
       "api_key": [
@@ -25,15 +29,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443378748712-kf2mkgiaobgu2pj1v64c4rr3j0ndqqmc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "443378748712-14l8sk9lg9l4p06rq8ra021qu6phiug6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "my.com.tm.senseios"
+              }
+            }
+          ]
         }
       }
     }

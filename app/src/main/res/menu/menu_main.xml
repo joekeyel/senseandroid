@@ -7,7 +7,7 @@
         android:orderInCategory="100"
         android:title="info"
         app:showAsAction="always"
-        android:icon="@drawable/ic_menu_gallery"/>
+        android:icon="@drawable/rnr"/>
 
 
 </menu>

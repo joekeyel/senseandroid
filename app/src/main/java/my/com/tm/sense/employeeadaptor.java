@@ -3,6 +3,7 @@ package my.com.tm.sense;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,15 +165,10 @@ public class employeeadaptor extends ArrayAdapter implements Filterable {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Hand
-                //
-                //
-                // le any errors
+                Log.e("Load Image","No Image exist");
 
-               // image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profileicon));
 
-//                Toast toast1 = Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT);
-//                toast1.show();
+               image.setImageResource(R.mipmap.nine_smiley_selected_round);
             }
         });
 

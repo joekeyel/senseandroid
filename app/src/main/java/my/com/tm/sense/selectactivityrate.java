@@ -3,6 +3,7 @@ package my.com.tm.sense;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class selectactivityrate extends AppCompatActivity {
 
@@ -156,5 +160,19 @@ public class selectactivityrate extends AppCompatActivity {
     public void onBackPressed() {
 
         finish();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        String email = user.getEmail();
+
+        if(email.equals("isyraf@tm.com.my")) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }
+        return true;
     }
 }
