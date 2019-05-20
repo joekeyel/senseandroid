@@ -58,6 +58,7 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
 
         public MyViewHolder(View view) {
             super(view);
+
             name = (TextView)view.findViewById(R.id.employeename);
             email = (TextView)view.findViewById(R.id.employeeemail);
             division = (TextView)view.findViewById(R.id.employeediv);
@@ -178,8 +179,16 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
             @Override
             public void onClick(View v) {
 
-                Toast toast = Toast.makeText(ctx, "Click Button", Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(ctx, "Click Button", Toast.LENGTH_SHORT);
+//                toast.show();
+
+                Intent nextpage = new Intent(ctx, RewardActivity.class);
+                nextpage.putExtra("employeename", ttmodellist.get(position).getName());
+                nextpage.putExtra("division",ttmodellist.get(position).getDivision());
+                nextpage.putExtra("staffid",ttmodellist.get(position).getStaffid());
+                nextpage.putExtra("email",ttmodellist.get(position).getEmail());
+                nextpage.putExtra("uid",ttmodellist.get(position).getUid());
+                ctx.startActivity(nextpage);
 
             }
         });
