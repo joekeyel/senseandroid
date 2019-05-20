@@ -16,6 +16,9 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -61,14 +64,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 
 public class searchemployee extends Fragment implements ListView.OnItemClickListener{
 
 
     private ProgressDialog loading;
 
-    private ListView listView;
+    private RecyclerView listView;
     EditText editext;
     Button btnsearch,back;
     SearchView searchView;
@@ -98,9 +101,10 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-        listView = (ListView) myView.findViewById(R.id.list);
 
-        listView.setOnItemClickListener(this);
+
+
+
 
         back = (Button) myView.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +244,12 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 //
 //                new int[]{R.id.satu, R.id.dua});
 
-        employeeadaptor adapter2 =  new employeeadaptor(getActivity(),R.layout.employee_row,employeelist);
+        listView = (RecyclerView) myView.findViewById(R.id.list);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
+        listView.setLayoutManager(mLayoutManager);
+        listView.setItemAnimator(new DefaultItemAnimator());
+        employeeRecycleAdaptor adapter2 =  new employeeRecycleAdaptor(employeelist,this.getContext());
 
 
         listView.setAdapter(adapter2);
@@ -519,50 +528,50 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-        employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
-
-        String empId = obj.getName();
-        String emailselected = obj.getEmail();
-        String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
-
-
-//        Bundle args = new Bundle();
-//        args.putString("employeename", empId);
-//        fragment1.setArguments(args);
-
-        Context context = getActivity();
-        CharSequence text = empId;
-        int duration = Toast.LENGTH_SHORT;
-
-
+//        employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
 //
-//        if(fragment1 != null){
-//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.content_frame, fragment1);
-//            ft.commit();
+//        String empId = obj.getName();
+//        String emailselected = obj.getEmail();
+//        String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+//
+//
+//
+//
+////        Bundle args = new Bundle();
+////        args.putString("employeename", empId);
+////        fragment1.setArguments(args);
+//
+//        Context context = getActivity();
+//        CharSequence text = empId;
+//        int duration = Toast.LENGTH_SHORT;
+//
+//
+////
+////        if(fragment1 != null){
+////            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+////            ft.replace(R.id.content_frame, fragment1);
+////            ft.commit();
+////        }
+//
+//
+//        if(!emailselected.equals(useremail)) {
+//
+//            Toast toast = Toast.makeText(context, text, duration);
+//            toast.show();
+//
+//            Intent nextpage = new Intent(getActivity(), selectactivityrate.class);
+//            nextpage.putExtra("employeename", empId);
+//            nextpage.putExtra("division",obj.getDivision());
+//            nextpage.putExtra("staffid",obj.getStaffid());
+//            nextpage.putExtra("email",obj.getEmail());
+//            startActivity(nextpage);
+//        }else{
+//            Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
+//            toast2.show();
+//
 //        }
-
-
-        if(!emailselected.equals(useremail)) {
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
-            Intent nextpage = new Intent(getActivity(), selectactivityrate.class);
-            nextpage.putExtra("employeename", empId);
-            nextpage.putExtra("division",obj.getDivision());
-            nextpage.putExtra("staffid",obj.getStaffid());
-            nextpage.putExtra("email",obj.getEmail());
-            startActivity(nextpage);
-        }else{
-            Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
-            toast2.show();
-
-        }
-     //   intent.putExtra("STATE", empId);
-
+//     //   intent.putExtra("STATE", empId);
+//
 
 
 
