@@ -19,7 +19,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/1/android/playstore-icon.png" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Downloads/1/android/playstore-icon.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -49,7 +49,7 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="backgroundLayerName" value="qrbelakang2" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/icons8-qr-code-50.png" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../Downloads/icons8-qr-code-50.png" />
                                       <entry key="foregroundLayerName" value="qrdepan2" />
                                       <entry key="outputName" value="qricon2" />
                                     </map>
@@ -108,7 +108,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_assignment_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_delete_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -118,8 +118,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="rnr" />
-                            <entry key="sourceFile" value="$USER_HOME$" />
+                            <entry key="color" value="ffb83f" />
+                            <entry key="outputName" value="ic_delete_black_24dp" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/.." />
                           </map>
                         </option>
                       </PersistentState>

@@ -102,10 +102,6 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-
-
-
-
         back = (Button) myView.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

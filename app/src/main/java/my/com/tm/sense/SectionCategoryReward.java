@@ -3,6 +3,7 @@ package my.com.tm.sense;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,12 +13,12 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 class SectionCategoryReward extends StatelessSection {
-    ArrayList<categotymodel> itemList;
+    ArrayList<rewardmodel> itemList;
     String title;
     SectionedRecyclerViewAdapter section;
     Context ctx;
 
-    public SectionCategoryReward(String title, ArrayList<categotymodel> itemlist, SectionedRecyclerViewAdapter section, Context ctx) {
+    public SectionCategoryReward(String title, ArrayList<rewardmodel> itemlist, SectionedRecyclerViewAdapter section, Context ctx) {
 
 
         super(SectionParameters.builder()
@@ -52,32 +53,10 @@ class SectionCategoryReward extends StatelessSection {
 
 
 
-//
-//        itemHolder.preplan_status.setText("STATUS:"+(CharSequence) itemList.get(position).getPreplan_status());
-//        itemHolder.preplan_name.setText("PREPLAN NAME:"+(CharSequence) itemList.get(position).getPreplan_name());
-//        itemHolder.preplan_id.setText("PREPLAN ID:"+(CharSequence) itemList.get(position).getPreplan_id());
-//
-//        itemHolder.createdby.setText("Createdby:"+(CharSequence) itemList.get(position).getCreated_by());
-//        itemHolder.updatedby.setText("Updatedby:"+(CharSequence) itemList.get(position).getUpdate_by());
-//        itemHolder.project_required.setText("Project Required:"+(CharSequence) itemList.get(position).getProject_required());
 
+        itemHolder.item_name.setText( itemList.get(position).getItem());
+        itemHolder.point.setText( itemList.get(position).getPoint());
 
-
-
-//        itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(ctx,
-//                        String.format("Clicked on position #%s of Section %s",
-//                                itemList.get(section.getPositionInSection(itemHolder.getAdapterPosition())).getOrderid(),
-//                                title),
-//                        Toast.LENGTH_SHORT).show();
-//
-//
-//
-//
-//            }
-//        });
 
     }
 
@@ -91,16 +70,28 @@ class SectionCategoryReward extends StatelessSection {
         HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
 
         headerHolder.tvTitle.setText(title);
+
+
+        headerHolder.addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RewardActivity.getInstance().addItem(title);
+            }
+        });
+
     }
 
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
+        private final Button addItem;
 
         HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.titleCategory);
+            addItem = (Button)view.findViewById(R.id.createaissues);
         }
     }
 
@@ -108,7 +99,7 @@ class SectionCategoryReward extends StatelessSection {
 
 
     private class MyItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView preplan_status, preplan_name, preplan_id,createdby,updatedby,project_required;
+        private TextView item_name, point;
 
 
         private View rootView;
@@ -117,12 +108,9 @@ class SectionCategoryReward extends StatelessSection {
             super(view);
 
 
-//            preplan_status = (TextView) view.findViewById(R.id.preplan_status);
-//            preplan_name = (TextView) view.findViewById(R.id.preplan_name);
-//            preplan_id = (TextView) view.findViewById(R.id.REMARK);
-//            createdby = (TextView) view.findViewById(R.id.createdby);
-//            updatedby = (TextView) view.findViewById(R.id.updateby);
-//            project_required = (TextView) view.findViewById(R.id.projectrequired);
+            item_name = (TextView) view.findViewById(R.id.item);
+            point = (TextView) view.findViewById(R.id.point);
+
 
 
 

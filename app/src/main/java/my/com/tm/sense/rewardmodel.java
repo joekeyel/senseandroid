@@ -1,10 +1,19 @@
 package my.com.tm.sense;
 
-public class categotymodel {
+public class rewardmodel {
 
 
     private String item;
     private String point;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getItem() {
         return item;

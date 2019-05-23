@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+  <ImageView
+      android:id="@+id/imageViewrow"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="0.4"
+
+      android:layout_gravity="center"
+      android:src="@mipmap/usersearch"/>
+  <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_weight="0.6"
+      android:layout_gravity="center">
+    <TextView
+        android:id="@+id/employeename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hasanul Isyraf Abd Azis"
+
+        />
+
+      <TextView
+          android:id="@+id/employeeemail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="isyraf@tm.com.my"
+
+          />
+
+      <TextView
+          android:id="@+id/employeestaffid"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="S12760"
+
+          />
+
+      <TextView
+          android:id="@+id/employeediv"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="MAO"
+          />
+
+    <TextView
+        android:id="@+id/averagerating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10"
+
+        />
+
+    <TextView
+        android:id="@+id/totalrater"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"
+
+        />
+
+  </LinearLayout>
+</LinearLayout>
+
+
+</LinearLayout>

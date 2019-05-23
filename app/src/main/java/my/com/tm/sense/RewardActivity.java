@@ -1,132 +1,540 @@
 package my.com.tm.sense;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class RewardActivity extends AppCompatActivity {
 
 
-    TextView name;
+
     TextView email;
     TextView division;
     TextView staffid;
-    TextView averagerate;
-    TextView countrater;
-    ImageView image;
-    Button showRewardBtn;
-    Button rateUserBtn;
 
+    String JSON_RESULT;
+    AlertDialog alert2;
+
+    public static RewardActivity RewardActivityInstance;
+    public static RewardActivity getInstance() {
+
+        return RewardActivityInstance;
+    }
 
     RecyclerView rcReward;
     SectionedRecyclerViewAdapter sectionAdaptor;
-    ArrayList<categotymodel> category1;
+    ArrayList<rewardmodel> rewardlist1 = new ArrayList<>();
+    ArrayList<rewardmodel> rewardlist2 = new ArrayList<>();
+    ArrayList<rewardmodel> rewardlist3 = new ArrayList<>();
+    ArrayList<rewardmodel> rewardlist4 = new ArrayList<>();
+    ArrayList<rewardmodel> rewardlist5 = new ArrayList<>();
+
+    employeemodel employeepbject;
+
+    String namestr;
+    String divisionstr ;
+    String staffidstr ;
+    String emailstr ;
+    String uidstr;
+    String updateby;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rewardactivitylayout);
 
+        RewardActivityInstance = this;
 
         Intent i = getIntent();
-        String namestr = i.getStringExtra("employeename");
-        String divisionstr = i.getStringExtra("division");
-        String staffidstr = i.getStringExtra("staffid");
-        String emailstr = i.getStringExtra("email");
-        String uidstr = i.getStringExtra("uid");
+         namestr = i.getStringExtra("employeename");
+         divisionstr = i.getStringExtra("division");
+         staffidstr = i.getStringExtra("staffid");
+         emailstr = i.getStringExtra("email");
+         uidstr = i.getStringExtra("uid");
+
+         updateby = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        employeepbject = new employeemodel();
+        employeepbject.setName(namestr);
+        employeepbject.setDivision(divisionstr);
+        employeepbject.setEmail(emailstr);
+        employeepbject.setStaffid(staffidstr);
+        employeepbject.setUid(uidstr);
 
 
 
-        name = (TextView)findViewById(R.id.employeename);
-        email = (TextView)findViewById(R.id.employeeemail);
-        division = (TextView)findViewById(R.id.employeediv);
-        staffid = (TextView)findViewById(R.id.employeestaffid);
-        image = (ImageView)findViewById(R.id.imageViewrow);
-        averagerate = (TextView)findViewById(R.id.averagerating);
-        countrater = (TextView) findViewById(R.id.totalrater);
-        showRewardBtn = (Button)findViewById(R.id.showReward);
-        rateUserBtn = (Button)findViewById(R.id.rateUserBtn);
+
 
         rcReward = (RecyclerView)findViewById(R.id.rewardRecycleView);
 
 
-        name.setText(namestr);
-        email.setText(emailstr);
-        division.setText(divisionstr);
-        staffid.setText(staffidstr);
 
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
+        sectionAdaptor = new SectionedRecyclerViewAdapter();
 
 
-        storageRef.child("senseprofile" + "/"+uidstr+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // TODO: handle uri
-
-                Context context = image.getContext();
-
-                image.invalidate();
-
-                Picasso.with(context).load(uri).networkPolicy(NetworkPolicy.NO_CACHE).into(image);
+        sectionAdaptor.addSection(new SectionProfileReward("GENERAL", employeepbject, sectionAdaptor, getApplicationContext()));
 
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e("Load Image","No Image exist");
-
-
-                image.setImageResource(R.mipmap.nine_smiley_selected_round);
-            }
-        });
-
-
-        categotymodel category = new categotymodel();
-        category.setItem("Achievement 1");
-        category.setPoint("200");
-
-        category1.add(category);
-
-        category.setItem("Achievement 2");
-        category.setPoint("300");
-
-        category1.add(category);
-        category.setItem("Achievement 3");
-        category.setPoint("250");
-
-        category1.add(category);
-
-        sectionAdaptor.addSection(new SectionCategoryReward("CATEGORY 1", category1, sectionAdaptor, getApplicationContext()));
 
         rcReward.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rcReward.setItemAnimator(new DefaultItemAnimator());
         rcReward.setAdapter(sectionAdaptor);
+
+        queryApiReward LoadReward = new queryApiReward();
+        LoadReward.execute(Config.URL_LOAD_REWARD, emailstr);
+
     }
 
+
+    public void addItem(final String categorystr){
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alert2 = alertDialog.create();
+
+        // alert.setTitle("APPROVAL");
+        LayoutInflater inflater1 = getLayoutInflater();
+        final View convertView1 = inflater1.inflate(R.layout.addnewrewardheader, null);
+        alert2.setCustomTitle(convertView1);
+
+
+        Button closed = (Button)convertView1.findViewById(R.id.closed);
+        closed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert2.dismiss();
+            }
+        });
+
+
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        // inflate the custom popup layout
+        final View convertView = inflater.inflate(R.layout.addrewreward, null);
+
+
+        ArrayList<String> listissueheader = new ArrayList<>();
+        listissueheader.add("Achievement 1");
+        listissueheader.add("Achievement 2");
+        listissueheader.add("Achievement 3");
+        listissueheader.add("Achievement 4");
+
+        final Spinner spinner1 = (Spinner) convertView.findViewById(R.id.spinner);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item,
+                        listissueheader);
+
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner1.setAdapter(adapter2);
+
+
+        Button complete = (Button)convertView.findViewById(R.id.complete_button);
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                EditText points = (EditText)convertView.findViewById(R.id.numberinput);
+                String pointstr = points.getText().toString();
+
+                String itemstr = spinner1.getSelectedItem().toString();
+
+                 updatereward(namestr,categorystr,pointstr,emailstr,itemstr,updateby);
+
+                alert2.dismiss();
+            }
+        });
+
+        Button cancel = (Button)convertView.findViewById(R.id.cancel_action);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert2.dismiss();
+            }
+        });
+
+        alert2.setView(convertView);
+        alert2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+
+        alert2.show();
+
+
+
+
+    }
+
+    public class queryApiReward extends AsyncTask<String, Integer, String > {
+
+
+        @Override
+        protected String   doInBackground(String... params) {
+            HttpURLConnection conn = null;
+            BufferedReader reader = null;
+
+            params[1] = params[1].replaceAll(" ", "%20");
+
+            String query = "?email=" + params[1] ;
+
+
+            try {
+                URL url = new URL(params[0] + query);
+
+                conn = (HttpURLConnection) url.openConnection();
+
+
+                conn.connect();
+
+                InputStream stream = conn.getInputStream();
+
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+
+
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "");
+                }
+
+                String finalJson = buffer.toString();
+
+
+
+
+
+                return finalJson;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String finaljson) {
+
+            Log.e("JSON",finaljson);
+
+
+            if(finaljson != null && finaljson != "") {
+
+
+
+
+
+                JSONObject parentObject = null;
+                try {
+                    parentObject = new JSONObject(finaljson);
+
+
+
+
+                    //list approval
+                    JSONArray parentArray = parentObject.getJSONArray("category1");
+
+                    rewardlist1.clear();
+
+                    for (int i = 0; i < parentArray.length(); i++) {
+
+                        rewardmodel rewardobject = new rewardmodel();
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+
+                        rewardobject.setItem(finalObject.getString("item"));
+                        rewardobject.setPoint(finalObject.getString("points"));
+                        rewardobject.setId(finalObject.getString("idemployeeReward"));
+
+
+                        rewardlist1.add(rewardobject);
+
+                    }
+
+                    JSONArray parentArray2 = parentObject.getJSONArray("category2");
+                    rewardlist2.clear();
+                    for (int i = 0; i < parentArray2.length(); i++) {
+
+                        rewardmodel rewardobject = new rewardmodel();
+                        JSONObject finalObject = parentArray2.getJSONObject(i);
+
+                        rewardobject.setItem(finalObject.getString("item"));
+                        rewardobject.setPoint(finalObject.getString("points"));
+                        rewardobject.setId(finalObject.getString("idemployeeReward"));
+
+
+                        rewardlist2.add(rewardobject);
+
+                    }
+
+
+                    JSONArray parentArray3 = parentObject.getJSONArray("category3");
+                    rewardlist3.clear();
+                    for (int i = 0; i < parentArray3.length(); i++) {
+
+                        rewardmodel rewardobject = new rewardmodel();
+                        JSONObject finalObject = parentArray3.getJSONObject(i);
+
+                        rewardobject.setItem(finalObject.getString("item"));
+                        rewardobject.setPoint(finalObject.getString("points"));
+                        rewardobject.setId(finalObject.getString("idemployeeReward"));
+
+
+                        rewardlist3.add(rewardobject);
+
+                    }
+
+                    JSONArray parentArray4 = parentObject.getJSONArray("category4");
+                    rewardlist4.clear();
+                    for (int i = 0; i < parentArray4.length(); i++) {
+
+                        rewardmodel rewardobject = new rewardmodel();
+                        JSONObject finalObject = parentArray4.getJSONObject(i);
+
+                        rewardobject.setItem(finalObject.getString("item"));
+                        rewardobject.setPoint(finalObject.getString("points"));
+                        rewardobject.setId(finalObject.getString("idemployeeReward"));
+
+
+                        rewardlist4.add(rewardobject);
+
+                    }
+
+                    JSONArray parentArray5 = parentObject.getJSONArray("category5");
+                    rewardlist5.clear();
+
+
+                    for (int i = 0; i < parentArray5.length(); i++) {
+
+                        rewardmodel rewardobject = new rewardmodel();
+                        JSONObject finalObject = parentArray5.getJSONObject(i);
+
+                        rewardobject.setItem(finalObject.getString("item"));
+                        rewardobject.setPoint(finalObject.getString("points"));
+                        rewardobject.setId(finalObject.getString("idemployeeReward"));
+
+
+                        rewardlist5.add(rewardobject);
+
+                    }
+
+
+
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("ERROR_JSON",e.getLocalizedMessage());
+
+
+                }
+
+
+
+
+                sectionAdaptor.removeAllSections();
+
+                sectionAdaptor.addSection(new SectionProfileReward("GENERAL", employeepbject, sectionAdaptor, getApplicationContext()));
+// Add your Sections
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 1", rewardlist1,sectionAdaptor, getApplicationContext()));
+
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 2", rewardlist2,sectionAdaptor, getApplicationContext()));
+
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 3", rewardlist3,sectionAdaptor, getApplicationContext()));
+
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 4", rewardlist4,sectionAdaptor, getApplicationContext()));
+
+
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 5", rewardlist5,sectionAdaptor, getApplicationContext()));
+
+                sectionAdaptor.notifyDataSetChanged();
+
+                
+
+            }
+
+
+        }
+    }
+
+
+    private void updatereward( String employeename,String category,String points,String email,String item,String updatedby){
+
+
+
+        class insertuserreward extends AsyncTask<String,Void,String> {
+
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                JSON_RESULT = s;
+
+
+                try {
+                    JSONObject jsonreturn = new JSONObject(s);
+
+                    String result = jsonreturn.getString("result");
+
+                    Toast toast1 = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
+                    toast1.show();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+
+
+                queryApiReward LoadReward = new queryApiReward();
+                LoadReward.execute(Config.URL_LOAD_REWARD, emailstr);
+
+
+
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                HashMap<String, String> map = new HashMap<>();
+
+                map.put("item",params[4]);
+                map.put("email",params[3]);
+                map.put("category",params[1]);
+                map.put("points",params[2]);
+                map.put("employeename",params[0]);
+
+
+                StringBuilder sb = new StringBuilder();
+                try {
+                    URL url = new URL(Config.URL_INSERT_REWARD);
+
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
+
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter bufferwriter = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                    String data = URLEncoder.encode("achievement","UTF-8")+"="+URLEncoder.encode(params[4],"UTF-8")+
+
+                            "&"+URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(params[3],"UTF-8")+
+
+                            "&"+URLEncoder.encode("category","UTF-8")+"="+URLEncoder.encode(params[1],"UTF-8")+
+                            "&"+URLEncoder.encode("points","UTF-8")+"="+URLEncoder.encode(params[2],"UTF-8")+
+                            "&"+URLEncoder.encode("employeename","UTF-8")+"="+URLEncoder.encode(params[0], "UTF-8") +
+                            "&"+URLEncoder.encode("updatedby","UTF-8")+"="+URLEncoder.encode(params[5], "UTF-8");
+
+                    bufferwriter.write(data);
+                    bufferwriter.flush();
+                    bufferwriter.close();
+                    os.close();
+
+                    InputStream is = conn.getInputStream();
+
+
+
+                    int responseCode = conn.getResponseCode();
+
+
+                    if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        sb = new StringBuilder();
+                        String response;
+                        //Reading server response
+                        while ((response = br.readLine()) != null){
+                            sb.append(response);
+                        }
+                    }
+
+                    is.close();
+
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+            }
+
+
+        }
+
+
+        insertuserreward gaban = new insertuserreward();
+        gaban.execute(employeename,category,points,email,item,updatedby);
+    }
 
 
 }
