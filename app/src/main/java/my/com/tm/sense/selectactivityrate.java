@@ -38,6 +38,8 @@ public class selectactivityrate extends AppCompatActivity {
 
         myactivitymain = this;
 
+
+
         Intent i = getIntent();
         employeename = i.getStringExtra("employeename");
         division = i.getStringExtra("division");

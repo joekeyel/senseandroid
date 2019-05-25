@@ -54,6 +54,7 @@ public class RewardActivity extends AppCompatActivity {
 
     String JSON_RESULT;
     AlertDialog alert2;
+    AlertDialog alert3;
 
     public static RewardActivity RewardActivityInstance;
     public static RewardActivity getInstance() {
@@ -207,6 +208,173 @@ public class RewardActivity extends AppCompatActivity {
         alert2.show();
 
 
+
+
+    }
+
+
+    public void deleteItem(final String id){
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alert3 = alertDialog.create();
+
+        // alert.setTitle("APPROVAL");
+        LayoutInflater inflater1 = getLayoutInflater();
+        final View convertView1 = inflater1.inflate(R.layout.addnewrewardheader, null);
+        alert3.setCustomTitle(convertView1);
+
+
+        Button closed = (Button)convertView1.findViewById(R.id.closed);
+        closed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert3.dismiss();
+            }
+        });
+
+        TextView headertxt = (TextView)convertView1.findViewById(R.id.title);
+        headertxt.setText("DELETE");
+
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        // inflate the custom popup layout
+        final View convertView = inflater.inflate(R.layout.deletereward, null);
+
+
+        Button complete = (Button)convertView.findViewById(R.id.complete_button);
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                deleteItemApi(id);
+
+                alert3.dismiss();
+            }
+        });
+
+        Button cancel = (Button)convertView.findViewById(R.id.cancel_action);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert3.dismiss();
+            }
+        });
+
+        alert3.setView(convertView);
+        alert3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+
+        alert3.show();
+
+
+
+
+    }
+
+    public void deleteItemApi(String id) {
+
+        class deletereward extends AsyncTask<String,Void,String> {
+
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                JSON_RESULT = s;
+//                Toast toast2 = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
+//                toast2.show();
+
+                try {
+                    JSONObject jsonreturn = new JSONObject(s);
+
+                    String result = jsonreturn.getString("result");
+
+                    Toast toast1 = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
+                    toast1.show();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+
+
+                queryApiReward LoadReward = new queryApiReward();
+                LoadReward.execute(Config.URL_LOAD_REWARD, emailstr);
+
+
+
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+
+                String emailuser = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                StringBuilder sb = new StringBuilder();
+                try {
+                    URL url = new URL(Config.URL_DELETE_REWARD);
+
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
+
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter bufferwriter = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                    String data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(params[0],"UTF-8")+
+                            "&"+URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(emailuser,"UTF-8");
+
+                    bufferwriter.write(data);
+                    bufferwriter.flush();
+                    bufferwriter.close();
+                    os.close();
+
+                    InputStream is = conn.getInputStream();
+
+
+
+                    int responseCode = conn.getResponseCode();
+
+
+                    if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        sb = new StringBuilder();
+                        String response;
+                        //Reading server response
+                        while ((response = br.readLine()) != null){
+                            sb.append(response);
+                        }
+                    }
+
+                    is.close();
+
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+            }
+
+
+        }
+
+        deletereward gaban = new deletereward();
+        gaban.execute(id);
 
 
     }

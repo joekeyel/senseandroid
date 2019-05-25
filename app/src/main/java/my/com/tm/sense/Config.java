@@ -25,5 +25,6 @@ public class Config {
 
     public static final String URL_GET_RATING = "http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/getuserrating.php";
     public static final String URL_INSERT_REWARD = "http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/insertuserReward.php" ;
+    public static final String URL_DELETE_REWARD = "http://58.27.84.166/mcconline/MCC%20Online%20V3/sense/deleteuserReward.php" ;
     public static String upLoadServerUri = "http://58.27.84.166/mcconline/sphere_test/uploadimagetask.php";
 }

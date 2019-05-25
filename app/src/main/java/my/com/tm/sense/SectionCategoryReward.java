@@ -48,7 +48,7 @@ class SectionCategoryReward extends StatelessSection {
     }
 
     @Override
-    public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final MyItemViewHolder itemHolder = (MyItemViewHolder) holder;
 
 
@@ -56,6 +56,19 @@ class SectionCategoryReward extends StatelessSection {
 
         itemHolder.item_name.setText( itemList.get(position).getItem());
         itemHolder.point.setText( itemList.get(position).getPoint());
+
+
+        if(itemList.get(position).getId().isEmpty()){
+
+            itemHolder.deleteitem.setVisibility(View.INVISIBLE);
+        }
+
+        itemHolder.deleteitem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RewardActivity.getInstance().deleteItem(itemList.get(position).getId());
+            }
+        });
 
 
     }
@@ -100,6 +113,7 @@ class SectionCategoryReward extends StatelessSection {
 
     private class MyItemViewHolder extends RecyclerView.ViewHolder {
         private TextView item_name, point;
+        private Button deleteitem;
 
 
         private View rootView;
@@ -110,6 +124,8 @@ class SectionCategoryReward extends StatelessSection {
 
             item_name = (TextView) view.findViewById(R.id.item);
             point = (TextView) view.findViewById(R.id.point);
+            deleteitem = (Button)view.findViewById(R.id.deleteitem);
+
 
 
 

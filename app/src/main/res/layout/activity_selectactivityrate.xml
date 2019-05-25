@@ -5,14 +5,15 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-<TextView
-    android:layout_width="match_parent"
-    android:id="@+id/tittle"
-    android:layout_height="0dp"
-    android:layout_weight="0.1"
-    android:text="Please Select Activity"
-    android:layout_gravity="center"
-    android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/tittle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.1"
+        android:text="Please Select Activity"
+        android:textAlignment="center"
+        />
 
     <RadioGroup
         android:id="@+id/toggleGroup"
@@ -81,7 +82,8 @@
     <TextView
         android:id="@+id/selectedsmiley"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <EditText
         android:id="@+id/remarkactitivty"

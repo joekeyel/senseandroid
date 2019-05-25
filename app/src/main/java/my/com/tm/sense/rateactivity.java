@@ -62,6 +62,9 @@ public class rateactivity extends AppCompatActivity {
 
         myactivitymain = this;
 
+
+
+
         Intent i = getIntent();
          activity = i.getStringExtra("activity");
          activityremark = i.getStringExtra("remarkactivity");
