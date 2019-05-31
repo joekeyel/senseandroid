@@ -1,6 +1,7 @@
 package my.com.tm.sense;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -78,6 +80,8 @@ public class RewardActivity extends AppCompatActivity {
     String emailstr ;
     String uidstr;
     String updateby;
+
+    DatePickerDialog datePickerDialog;
 
 
     @Override
@@ -158,10 +162,43 @@ public class RewardActivity extends AppCompatActivity {
 
 
         ArrayList<String> listissueheader = new ArrayList<>();
-        listissueheader.add("Achievement 1");
-        listissueheader.add("Achievement 2");
-        listissueheader.add("Achievement 3");
-        listissueheader.add("Achievement 4");
+
+
+
+        if(categorystr.equals("Category 1")){
+
+            listissueheader.clear();
+            listissueheader.add("Zero Medical Certificate");
+        }
+
+        if(categorystr.equals("Category 2")){
+
+            listissueheader.clear();
+            listissueheader.add("High Performer Per Division(9-10)");
+            listissueheader.add("Moderate per Division(7-8)");
+        }
+
+        if(categorystr.equals("Category 3")){
+
+            listissueheader.clear();
+            listissueheader.add("360 > 4 TM Award(GLT,GCEO,CIIC,NPC)");
+
+        }
+        if(categorystr.equals("Category 4")){
+
+            listissueheader.clear();
+            listissueheader.add("Per 1s Sort,Set in Order,Shine, Standardize,Sustain");
+
+        }
+
+        if(categorystr.equals("Category 5")){
+
+            listissueheader.clear();
+            listissueheader.add("Participant of the Event");
+            listissueheader.add("Organizer Of the Event/Volunteers");
+            listissueheader.add("Supporters of the Event");
+
+        }
 
         final Spinner spinner1 = (Spinner) convertView.findViewById(R.id.spinner);
 
@@ -190,6 +227,9 @@ public class RewardActivity extends AppCompatActivity {
                 alert2.dismiss();
             }
         });
+
+        TextView dateinputtv = (TextView)convertView.findViewById(R.id.dateInput);
+
 
         Button cancel = (Button)convertView.findViewById(R.id.cancel_action);
         cancel.setOnClickListener(new View.OnClickListener() {

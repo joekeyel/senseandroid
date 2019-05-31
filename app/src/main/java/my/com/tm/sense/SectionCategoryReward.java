@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -71,6 +72,34 @@ class SectionCategoryReward extends StatelessSection {
         });
 
 
+        if(itemList.get(position).getItem().equals("Zero Medical Certificate")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon1);
+        }
+        if(itemList.get(position).getItem().equals("High Performer Per Division (9-10)")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon2);
+        }
+        if(itemList.get(position).getItem().equals("Moderate per Division (7-8)")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon2);
+        }
+
+        if(itemList.get(position).getItem().equals("360 > 4 TM Award(GLT,GCEO,CIIC,NPC)")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon3);
+        }
+        if(itemList.get(position).getItem().equals("Per 1s Sort,Set in Order,Shine, Standardize,Sustain")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon4);
+        }
+        if(itemList.get(position).getItem().equals("Organizer Of the Event/Volunteers")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon51);
+        }
+        if(itemList.get(position).getItem().equals("Participant of the Event")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon52);
+        }
+        if(itemList.get(position).getItem().equals("Supporters of the Event")) {
+            itemHolder.iconimage.setImageResource(R.mipmap.icon53);
+        }
+
+
+
     }
 
     @Override
@@ -114,6 +143,7 @@ class SectionCategoryReward extends StatelessSection {
     private class MyItemViewHolder extends RecyclerView.ViewHolder {
         private TextView item_name, point;
         private Button deleteitem;
+        private ImageView iconimage;
 
 
         private View rootView;
@@ -125,6 +155,7 @@ class SectionCategoryReward extends StatelessSection {
             item_name = (TextView) view.findViewById(R.id.item);
             point = (TextView) view.findViewById(R.id.point);
             deleteitem = (Button)view.findViewById(R.id.deleteitem);
+            iconimage = (ImageView)view.findViewById(R.id.iconachievement);
 
 
 

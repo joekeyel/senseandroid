@@ -26,12 +26,18 @@
 
     </Spinner>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateInput"
+        android:layout_below="@+id/spinner"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:id="@+id/numberinput"
-        android:layout_below="@+id/spinner"/>
+        android:layout_below="@+id/dateInput"/>
 
     <LinearLayout
     android:layout_width="match_parent"
