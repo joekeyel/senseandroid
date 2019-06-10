@@ -11,9 +11,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
+
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -106,12 +106,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),scanqractivity.class));
-//                Fragment fragment = new Ipmsansite();
-//
-//
-//                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                    ft.replace(R.id.content_frame, fragment);
-//                    ft.commit();
+
 
             }
         });
@@ -187,7 +182,6 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-
         }
 
 
@@ -211,6 +205,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 String c = jo.getString("staffid");
                 String d = jo.getString("division");
                 String e = jo.getString("uid");
+                String f = jo.getString("position");
 
 
 
@@ -222,6 +217,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 employeeeobject.setDivision(d);
                 employeeeobject.setStaffid(c);
                 employeeeobject.setUid(e);
+                employeeeobject.setPosition(f);
 
 
 
@@ -233,12 +229,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//
-//        ListAdapter adapter = new SimpleAdapter(
-//                getActivity(), list, R.layout.totalpstnsite,
-//                new String[]{"STATE","total"},
-//
-//                new int[]{R.id.satu, R.id.dua});
+
 
         listView = (RecyclerView) myView.findViewById(R.id.list);
 
@@ -524,52 +515,6 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-//        employeemodel obj = (employeemodel) listView.getAdapter().getItem(position);
-//
-//        String empId = obj.getName();
-//        String emailselected = obj.getEmail();
-//        String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-//
-//
-//
-//
-////        Bundle args = new Bundle();
-////        args.putString("employeename", empId);
-////        fragment1.setArguments(args);
-//
-//        Context context = getActivity();
-//        CharSequence text = empId;
-//        int duration = Toast.LENGTH_SHORT;
-//
-//
-////
-////        if(fragment1 != null){
-////            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-////            ft.replace(R.id.content_frame, fragment1);
-////            ft.commit();
-////        }
-//
-//
-//        if(!emailselected.equals(useremail)) {
-//
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-//
-//            Intent nextpage = new Intent(getActivity(), selectactivityrate.class);
-//            nextpage.putExtra("employeename", empId);
-//            nextpage.putExtra("division",obj.getDivision());
-//            nextpage.putExtra("staffid",obj.getStaffid());
-//            nextpage.putExtra("email",obj.getEmail());
-//            startActivity(nextpage);
-//        }else{
-//            Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
-//            toast2.show();
-//
-//        }
-//     //   intent.putExtra("STATE", empId);
-//
-
-
 
     }
 
@@ -801,6 +746,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 String c = jo.getString("staffid");
                 String d = jo.getString("division");
                 String e = jo.getString("uid");
+                String f = jo.getString("position");
 
 
 
@@ -812,6 +758,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 employeeeobject.setDivision(d);
                 employeeeobject.setStaffid(c);
                 employeeeobject.setUid(e);
+                employeeeobject.setPosition(f);
 
 
 
@@ -832,6 +779,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                     nextpage.putExtra("staffid", employeelist.get(0).getStaffid());
                     nextpage.putExtra("division", employeelist.get(0).getDivision());
                     nextpage.putExtra("staffid", employeelist.get(0).getStaffid());
+                    nextpage.putExtra("position", employeelist.get(0).getPosition());
                     nextpage.putExtra("activity", activity);
                     nextpage.putExtra("remarkactivity", activityremark);
 

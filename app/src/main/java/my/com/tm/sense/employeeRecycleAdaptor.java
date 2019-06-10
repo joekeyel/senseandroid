@@ -188,6 +188,7 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
                 nextpage.putExtra("staffid",ttmodellist.get(position).getStaffid());
                 nextpage.putExtra("email",ttmodellist.get(position).getEmail());
                 nextpage.putExtra("uid",ttmodellist.get(position).getUid());
+                nextpage.putExtra("position",ttmodellist.get(position).getPosition());
                 ctx.startActivity(nextpage);
 
             }

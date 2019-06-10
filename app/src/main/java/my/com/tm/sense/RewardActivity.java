@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +40,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -80,8 +83,12 @@ public class RewardActivity extends AppCompatActivity {
     String emailstr ;
     String uidstr;
     String updateby;
+    String positionstr = "";
 
-    DatePickerDialog datePickerDialog;
+  String dateinputstr = "";
+  String pointstr = "";
+
+
 
 
     @Override
@@ -97,6 +104,7 @@ public class RewardActivity extends AppCompatActivity {
          staffidstr = i.getStringExtra("staffid");
          emailstr = i.getStringExtra("email");
          uidstr = i.getStringExtra("uid");
+         positionstr = i.getStringExtra("position");
 
          updateby = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -174,20 +182,20 @@ public class RewardActivity extends AppCompatActivity {
         if(categorystr.equals("Category 2")){
 
             listissueheader.clear();
-            listissueheader.add("High Performer Per Division(9-10)");
-            listissueheader.add("Moderate per Division(7-8)");
+            listissueheader.add("High Performer Per Division (9-10)");
+            listissueheader.add("Moderate per Division (7-8)");
         }
 
         if(categorystr.equals("Category 3")){
 
             listissueheader.clear();
-            listissueheader.add("360 > 4 TM Award(GLT,GCEO,CIIC,NPC)");
+            listissueheader.add("360 > 4 TM Award (GLT,GCEO,CIIC,NPC)");
 
         }
         if(categorystr.equals("Category 4")){
 
             listissueheader.clear();
-            listissueheader.add("Per 1s Sort,Set in Order,Shine, Standardize,Sustain");
+            listissueheader.add("Per 1s Sort,Set in Order, Shine, Standardize,Sustain");
 
         }
 
@@ -211,6 +219,42 @@ public class RewardActivity extends AppCompatActivity {
         spinner1.setAdapter(adapter2);
 
 
+        final TextView dateinputtv = (TextView)convertView.findViewById(R.id.dateInput);
+
+        dateinputtv.setText("Select Date");
+        dateinputtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RewardActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                                Calendar c = Calendar.getInstance();
+                                c.set(year, month, day);
+
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                                String formattedDate = df.format(c.getTime());
+
+                                dateinputtv.setText(formattedDate);
+                                dateinputstr = formattedDate;
+
+                            }
+                        }, year, month, dayOfMonth);
+
+                datePickerDialog.show();
+            }
+
+
+        });
+
+
         Button complete = (Button)convertView.findViewById(R.id.complete_button);
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,17 +262,25 @@ public class RewardActivity extends AppCompatActivity {
 
 
                 EditText points = (EditText)convertView.findViewById(R.id.numberinput);
-                String pointstr = points.getText().toString();
+                 pointstr = points.getText().toString();
 
                 String itemstr = spinner1.getSelectedItem().toString();
 
+                if(dateinputstr.equals("") || pointstr.equals("")){
+
+                    Toast toast1 = Toast.makeText(getApplicationContext(), "Pls Insert all fields", Toast.LENGTH_SHORT);
+                    toast1.show();
+
+
+                }
+                else{
                  updatereward(namestr,categorystr,pointstr,emailstr,itemstr,updateby);
 
                 alert2.dismiss();
+              }
             }
         });
 
-        TextView dateinputtv = (TextView)convertView.findViewById(R.id.dateInput);
 
 
         Button cancel = (Button)convertView.findViewById(R.id.cancel_action);
@@ -486,7 +538,7 @@ public class RewardActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String finaljson) {
 
-            Log.e("JSON",finaljson);
+//            Log.e("JSON",finaljson);
 
 
             if(finaljson != null && finaljson != "") {
@@ -608,16 +660,16 @@ public class RewardActivity extends AppCompatActivity {
 
                 sectionAdaptor.addSection(new SectionProfileReward("GENERAL", employeepbject, sectionAdaptor, getApplicationContext()));
 // Add your Sections
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 1", rewardlist1,sectionAdaptor, getApplicationContext()));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 1", rewardlist1,sectionAdaptor, getApplicationContext(),positionstr));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 2", rewardlist2,sectionAdaptor, getApplicationContext()));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 2", rewardlist2,sectionAdaptor, getApplicationContext(),positionstr));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 3", rewardlist3,sectionAdaptor, getApplicationContext()));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 3", rewardlist3,sectionAdaptor, getApplicationContext(),positionstr));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 4", rewardlist4,sectionAdaptor, getApplicationContext()));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 4", rewardlist4,sectionAdaptor, getApplicationContext(),positionstr));
 
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 5", rewardlist5,sectionAdaptor, getApplicationContext()));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 5", rewardlist5,sectionAdaptor, getApplicationContext(),positionstr));
 
                 sectionAdaptor.notifyDataSetChanged();
 
@@ -698,7 +750,8 @@ public class RewardActivity extends AppCompatActivity {
                             "&"+URLEncoder.encode("category","UTF-8")+"="+URLEncoder.encode(params[1],"UTF-8")+
                             "&"+URLEncoder.encode("points","UTF-8")+"="+URLEncoder.encode(params[2],"UTF-8")+
                             "&"+URLEncoder.encode("employeename","UTF-8")+"="+URLEncoder.encode(params[0], "UTF-8") +
-                            "&"+URLEncoder.encode("updatedby","UTF-8")+"="+URLEncoder.encode(params[5], "UTF-8");
+                            "&"+URLEncoder.encode("updatedby","UTF-8")+"="+URLEncoder.encode(params[5], "UTF-8")+
+                            "&"+URLEncoder.encode("month","UTF-8")+"="+URLEncoder.encode(params[6], "UTF-8");
 
                     bufferwriter.write(data);
                     bufferwriter.flush();
@@ -741,7 +794,7 @@ public class RewardActivity extends AppCompatActivity {
 
 
         insertuserreward gaban = new insertuserreward();
-        gaban.execute(employeename,category,points,email,item,updatedby);
+        gaban.execute(employeename,category,points,email,item,updatedby,dateinputstr);
     }
 
 

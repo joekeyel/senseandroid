@@ -15,11 +15,11 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 class SectionCategoryReward extends StatelessSection {
     ArrayList<rewardmodel> itemList;
-    String title;
+    String title,positionstr;
     SectionedRecyclerViewAdapter section;
     Context ctx;
 
-    public SectionCategoryReward(String title, ArrayList<rewardmodel> itemlist, SectionedRecyclerViewAdapter section, Context ctx) {
+    public SectionCategoryReward(String title, ArrayList<rewardmodel> itemlist, SectionedRecyclerViewAdapter section, Context ctx,String Position) {
 
 
         super(SectionParameters.builder()
@@ -30,6 +30,7 @@ class SectionCategoryReward extends StatelessSection {
         this.title = title;
         this.section = section;
         this.ctx = ctx;
+        this.positionstr = Position;
     }
 
 
@@ -64,12 +65,18 @@ class SectionCategoryReward extends StatelessSection {
             itemHolder.deleteitem.setVisibility(View.INVISIBLE);
         }
 
-        itemHolder.deleteitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RewardActivity.getInstance().deleteItem(itemList.get(position).getId());
-            }
-        });
+
+        if(positionstr.equals("editor")) {
+            itemHolder.deleteitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RewardActivity.getInstance().deleteItem(itemList.get(position).getId());
+                }
+            });
+        }else{
+
+            itemHolder.deleteitem.setVisibility(View.INVISIBLE);
+        }
 
 
         if(itemList.get(position).getItem().equals("Zero Medical Certificate")) {
@@ -82,10 +89,10 @@ class SectionCategoryReward extends StatelessSection {
             itemHolder.iconimage.setImageResource(R.mipmap.icon2);
         }
 
-        if(itemList.get(position).getItem().equals("360 > 4 TM Award(GLT,GCEO,CIIC,NPC)")) {
+        if(itemList.get(position).getItem().equals("360 > 4 TM Award (GLT,GCEO,CIIC,NPC)")) {
             itemHolder.iconimage.setImageResource(R.mipmap.icon3);
         }
-        if(itemList.get(position).getItem().equals("Per 1s Sort,Set in Order,Shine, Standardize,Sustain")) {
+        if(itemList.get(position).getItem().equals("Per 1s Sort,Set in Order, Shine, Standardize,Sustain")) {
             itemHolder.iconimage.setImageResource(R.mipmap.icon4);
         }
         if(itemList.get(position).getItem().equals("Organizer Of the Event/Volunteers")) {
@@ -114,13 +121,19 @@ class SectionCategoryReward extends StatelessSection {
         headerHolder.tvTitle.setText(title);
 
 
-        headerHolder.addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(positionstr.equals("editor")) {
+            headerHolder.addItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                RewardActivity.getInstance().addItem(title);
-            }
-        });
+                    RewardActivity.getInstance().addItem(title);
+                }
+            });
+        }
+        else{
+
+            headerHolder.addItem.setVisibility(View.INVISIBLE);
+        }
 
     }
 

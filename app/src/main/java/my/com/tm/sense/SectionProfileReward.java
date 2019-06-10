@@ -39,6 +39,7 @@ class SectionProfileReward extends StatelessSection {
     SectionedRecyclerViewAdapter section;
     Context ctx;
     RequestQueue rq;
+    RequestQueue rq2;
 
     public SectionProfileReward(String title, employeemodel employeeobject, SectionedRecyclerViewAdapter section, Context ctx) {
 
@@ -126,6 +127,8 @@ class SectionProfileReward extends StatelessSection {
 
         headerHolder.tvTitle.setText(title);
 
+        rq2 = Volley.newRequestQueue(ctx);
+        sendrequest2(headerHolder.tvPoints,employeeobject.getEmail());
 
 
 
@@ -134,11 +137,13 @@ class SectionProfileReward extends StatelessSection {
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
+        private final TextView tvPoints;
 
         HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.titleCategory);
+            tvPoints = (TextView)view.findViewById(R.id.totalScore);
 
         }
     }
@@ -220,5 +225,35 @@ class SectionProfileReward extends StatelessSection {
                     }
                 });
         rq.add(jsonObjectRequest);
+    }
+
+    public void sendrequest2(final TextView pointtv, final String email){
+
+
+
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest
+                (Request.Method.GET,Config.URL_GET_REWARD_POINT+"?email="+email , null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            String reward = response.getString("reward");
+
+
+                                pointtv.setText("Point: "+reward);
+
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        rq2.add(jsonObjectRequest);
     }
 }
