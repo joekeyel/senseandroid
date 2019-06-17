@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SearchView
+        android:id="@+id/searchemployee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Employee name, Email"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/searchbutton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="Search Employee Name"
+                android:textColor="#000000"
+                android:textSize="14dp"
+
+                android:background="@drawable/strokeshape_header"
+                android:drawableStart="@drawable/searchusericon"
+                android:drawableLeft="@drawable/searchusericon"
+                android:padding="5dp"/>
+
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageViewrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:src="@mipmap/senseicon"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.8"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hasanul Isyraf Abd Azis has request to rate:meeting Miting sphere realignment"
+                android:lines="3"
+                />
+
+            <TextView
+                android:id="@+id/notificationdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2019-06-17"
+                android:textAlignment="textEnd"
+                android:gravity="end" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

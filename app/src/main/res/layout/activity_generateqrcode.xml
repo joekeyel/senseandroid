@@ -17,13 +17,28 @@
         android:text="You can share this QR Code to rate you through this App"
         android:padding="10dp"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
+        android:orientation="horizontal">
 
-        android:id="@+id/findimage"
-        android:background="@color/light_orange"
-        android:text="Generate QR Code"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/findimage"
+            android:background="@color/light_orange"
+            android:text="Generate QR Code"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectUserBtn"
+            android:background="@color/light_orange"
+            android:text="Notify Users"/>
+    </LinearLayout>
+
 
 </LinearLayout>

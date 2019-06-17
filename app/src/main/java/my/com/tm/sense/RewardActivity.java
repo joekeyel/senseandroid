@@ -84,6 +84,7 @@ public class RewardActivity extends AppCompatActivity {
     String uidstr;
     String updateby;
     String positionstr = "";
+    String userposition = "";
 
   String dateinputstr = "";
   String pointstr = "";
@@ -105,6 +106,7 @@ public class RewardActivity extends AppCompatActivity {
          emailstr = i.getStringExtra("email");
          uidstr = i.getStringExtra("uid");
          positionstr = i.getStringExtra("position");
+         userposition = i.getStringExtra("userposition");
 
          updateby = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -660,16 +662,16 @@ public class RewardActivity extends AppCompatActivity {
 
                 sectionAdaptor.addSection(new SectionProfileReward("GENERAL", employeepbject, sectionAdaptor, getApplicationContext()));
 // Add your Sections
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 1", rewardlist1,sectionAdaptor, getApplicationContext(),positionstr));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 1", rewardlist1,sectionAdaptor, getApplicationContext(),userposition));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 2", rewardlist2,sectionAdaptor, getApplicationContext(),positionstr));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 2", rewardlist2,sectionAdaptor, getApplicationContext(),userposition));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 3", rewardlist3,sectionAdaptor, getApplicationContext(),positionstr));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 3", rewardlist3,sectionAdaptor, getApplicationContext(),userposition));
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 4", rewardlist4,sectionAdaptor, getApplicationContext(),positionstr));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 4", rewardlist4,sectionAdaptor, getApplicationContext(),userposition));
 
 
-                sectionAdaptor.addSection(new SectionCategoryReward("Category 5", rewardlist5,sectionAdaptor, getApplicationContext(),positionstr));
+                sectionAdaptor.addSection(new SectionCategoryReward("Category 5", rewardlist5,sectionAdaptor, getApplicationContext(),userposition));
 
                 sectionAdaptor.notifyDataSetChanged();
 

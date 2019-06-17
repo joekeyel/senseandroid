@@ -67,13 +67,14 @@ public class generateqrcode extends AppCompatActivity {
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String uid = currentFirebaseUser.getUid();
-        String email = currentFirebaseUser.getEmail();
+        final String email = currentFirebaseUser.getEmail();
 
 
         final String query = email+","+ activity+","+ activityremark;
 
         imageView = (ImageView)findViewById(R.id.scanimage);
         Button selectimage = (Button)findViewById(R.id.findimage);
+        Button notifyuserbtn = (Button)findViewById(R.id.selectUserBtn);
 
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +82,24 @@ public class generateqrcode extends AppCompatActivity {
 
 
                 selectgallerywall1(query);
+            }
+        });
+
+
+        notifyuserbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent nextpage = new Intent(getApplicationContext(), SelectRater.class);
+
+                nextpage.putExtra("email",email);
+                nextpage.putExtra("activity",activity);
+                nextpage.putExtra("activityremark",activityremark);
+
+                Log.e(" ACTIVITY ",activity);
+
+                startActivity(nextpage);
             }
         });
 

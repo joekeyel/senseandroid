@@ -20,6 +20,12 @@
             android:id="@+id/profile"
             android:title="PROFILE"
             android:icon="@drawable/profileicon"/>
+
+        <item
+            android:id="@+id/notification"
+            android:title="NOTIFICATION"
+            android:icon="@drawable/notification_icon"/>
+
         <item
             android:id="@+id/setting"
             android:title="SETTING"

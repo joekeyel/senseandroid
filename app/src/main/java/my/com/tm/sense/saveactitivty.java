@@ -232,17 +232,7 @@ public class saveactitivty extends AppCompatActivity {
             @Override
             protected String doInBackground(String... params) {
 
-                HashMap<String, String> map = new HashMap<>();
 
-                map.put("uid",params[4]);
-                map.put("email",params[3]);
-                map.put("division",params[1]);
-                map.put("staffid",params[2]);
-                map.put("employeename",params[0]);
-                map.put("activity",params[5]);
-                map.put("activityremark",params[6]);
-                map.put("rating",params[7]);
-                map.put("ratingremark",params[8]);
 
                 StringBuilder sb = new StringBuilder();
                 try {

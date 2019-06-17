@@ -1,9 +1,10 @@
 package my.com.tm.sense;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -34,16 +37,32 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycleAdaptor.MyViewHolder> implements Filterable {
+import javax.net.ssl.HttpsURLConnection;
+
+public class employeeRecycleAdaptorRater extends RecyclerView.Adapter<employeeRecycleAdaptorRater.MyViewHolder> implements Filterable {
 
     private List<employeemodel> ttmodellist;
     private List<employeemodel> orig;
+    private List<employeemodel> listcheckemployee;
     RequestQueue rq;
+    RequestQueue rq2;
     Context ctx;
-    private String userposition;
+    private String userposition,activity,activityremark;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -53,9 +72,11 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
         TextView staffid;
         TextView averagerate;
         TextView countrater;
+
         ImageView image;
-        Button showRewardBtn;
-        Button rateUserBtn;
+        Button notifybtn;
+        ImageView imagestatus;
+
 
         public MyViewHolder(View view) {
             super(view);
@@ -67,20 +88,21 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
             image = (ImageView)view.findViewById(R.id.imageViewrow);
             averagerate = (TextView)view.findViewById(R.id.averagerating);
             countrater = (TextView) view.findViewById(R.id.totalrater);
-            showRewardBtn = (Button)view.findViewById(R.id.showReward);
-            rateUserBtn = (Button)view.findViewById(R.id.rateUserBtn);
-
+            notifybtn = (Button) view.findViewById(R.id.notify);
+            imagestatus = (ImageView)view.findViewById(R.id.imageStatus);
 
 
         }
     }
 
 
-    public employeeRecycleAdaptor(List<employeemodel> employeelist, Context ctx, String userposition) {
+    public employeeRecycleAdaptorRater(List<employeemodel> employeelist, Context ctx, String userposition,String activity,String activityremark) {
 
         this.ttmodellist = employeelist;
         this.ctx = ctx;
         this.userposition = userposition;
+        this.activity = activity;
+        this.activityremark = activityremark;
     }
 
 
@@ -126,17 +148,13 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.employee_row, parent, false);
+                .inflate(R.layout.employee_row_rater, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-        employeemodel movie = ttmodellist.get(position);
-
-
 
 
 
@@ -177,72 +195,24 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
         rq = Volley.newRequestQueue(ctx);
         sendrequest1(holder.averagerate,holder.countrater,ttmodellist.get(position).getEmail());
 
-        holder.showRewardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Toast toast = Toast.makeText(ctx, "Click Button", Toast.LENGTH_SHORT);
-//                toast.show();
-
-                Intent nextpage = new Intent(ctx, RewardActivity.class);
-                nextpage.putExtra("employeename", ttmodellist.get(position).getName());
-                nextpage.putExtra("division",ttmodellist.get(position).getDivision());
-                nextpage.putExtra("staffid",ttmodellist.get(position).getStaffid());
-                nextpage.putExtra("email",ttmodellist.get(position).getEmail());
-                nextpage.putExtra("uid",ttmodellist.get(position).getUid());
-                nextpage.putExtra("position",ttmodellist.get(position).getPosition());
-                nextpage.putExtra("userposition",userposition);
-                ctx.startActivity(nextpage);
-
-            }
-        });
 
 
-        holder.rateUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+       holder.notifybtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               holder.notifybtn.setVisibility(View.INVISIBLE);
 
 
-
-
-                String emailselected = ttmodellist.get(position).getEmail();
-                String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
-
-                Context context = ctx;
-
-                int duration = Toast.LENGTH_SHORT;
-
-
-                if(!emailselected.equals(useremail)) {
-
-
-
-                    Intent nextpage = new Intent(ctx, selectactivityrate.class);
-                    nextpage.putExtra("employeename", ttmodellist.get(position).getName());
-                    nextpage.putExtra("division",ttmodellist.get(position).getDivision());
-                    nextpage.putExtra("staffid",ttmodellist.get(position).getStaffid());
-                    nextpage.putExtra("email",ttmodellist.get(position).getEmail());
-                    ctx.startActivity(nextpage);
-                }else{
-                    Toast toast2 = Toast.makeText(context, "You cannot rate yourself", duration);
-                    toast2.show();
-
-                }
-
-
-
-
-
-            }
-        });
-
+               sendrequest3(holder.imagestatus,ttmodellist.get(position).getEmail());
+           }
+       });
 
     }
 
     @Override
     public int getItemCount() {
+
         return ttmodellist.size();
     }
 
@@ -289,5 +259,126 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
                     }
                 });
         rq.add(jsonObjectRequest);
+    }
+
+
+
+
+
+    private void sendrequest3(final ImageView statusimg, final String email){
+
+
+        class GetJSON extends AsyncTask<String,Void,String> {
+
+            ProgressDialog loading;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                loading = ProgressDialog.show(ctx,"Loading Data","Wait...",false,false);
+
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+//                Toast toast1 = Toast.makeText(ctx, s, Toast.LENGTH_LONG);
+//                toast1.show();
+
+                if(!s.isEmpty()){
+
+
+                    try {
+                        JSONObject jsonreturn = new JSONObject(s);
+
+                        String status = jsonreturn.getString("success");
+//
+//                    Toast toast1 = Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT);
+//                    toast1.show();
+                        if(status.equals("1")) {
+
+                            statusimg.setVisibility(View.VISIBLE);
+                        }
+                        else{
+
+                            Toast toast2 = Toast.makeText(ctx, status, Toast.LENGTH_LONG);
+                            toast2.show();
+                        }
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                        Toast toast = Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+
+                    }
+
+                }
+                loading.dismiss();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+
+                StringBuilder sb = new StringBuilder();
+                try {
+                    URL url = new URL(Config.URL_SEND_NOTIFICATION);
+
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
+
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter bufferwriter = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                    String data = URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(params[0],"UTF-8")+
+
+                            "&"+URLEncoder.encode("activity","UTF-8")+"="+URLEncoder.encode(params[1], "UTF-8")+
+                            "&"+URLEncoder.encode("activityremark","UTF-8")+"="+URLEncoder.encode(params[2], "UTF-8")+
+                            "&"+URLEncoder.encode("emailrequestor","UTF-8")+"="+URLEncoder.encode(params[3], "UTF-8");
+
+
+                    bufferwriter.write(data);
+                    bufferwriter.flush();
+                    bufferwriter.close();
+                    os.close();
+
+                    InputStream is = conn.getInputStream();
+
+
+
+                    int responseCode = conn.getResponseCode();
+
+
+                    if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        sb = new StringBuilder();
+                        String response;
+                        //Reading server response
+                        while ((response = br.readLine()) != null){
+                            sb.append(response);
+                        }
+                    }
+
+                    is.close();
+
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+            }
+        }
+        GetJSON gj = new GetJSON();
+        gj.execute(email,activity,activityremark,FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 }

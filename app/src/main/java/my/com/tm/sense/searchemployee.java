@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
@@ -64,6 +65,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 
 
 public class searchemployee extends Fragment implements ListView.OnItemClickListener{
@@ -83,6 +85,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
     private ArrayList<employeemodel> employeelist = new ArrayList<>();
     private String activity,activityremark;
+    private String userposition;
 
 
 
@@ -96,7 +99,10 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         String uid = user.getUid();
         String email = user.getEmail();
 
-        registerUser(uid,email);
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + refreshedToken);
+
+        registerUser(uid,email,refreshedToken);
 
 
 
@@ -117,19 +123,15 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // collapse the view ?
-                //menu.findItem(R.id.menu_search).collapseActionView();
 
-//               if(query.length()>3){
                 Log.e("queryText",query);
-              // }
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // search goes here !!
-                // listAdapter.getFilter().filter(query);
+
                 if(newText.length()>3) {
                     Log.e("queryTextSubmit", newText);
 
@@ -219,6 +221,11 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 employeeeobject.setUid(e);
                 employeeeobject.setPosition(f);
 
+                if(b.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+
+                    userposition = f;
+                }
+
 
 
                 employeelist.add(employeeeobject);
@@ -236,7 +243,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         listView.setLayoutManager(mLayoutManager);
         listView.setItemAnimator(new DefaultItemAnimator());
-        employeeRecycleAdaptor adapter2 =  new employeeRecycleAdaptor(employeelist,this.getContext());
+        employeeRecycleAdaptor adapter2 =  new employeeRecycleAdaptor(employeelist,this.getContext(),userposition);
 
 
         listView.setAdapter(adapter2);
@@ -280,7 +287,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
     }
 
 
-    private void registerUser(final String uid, final String email){
+    private void registerUser(final String uid, final String email,String regid){
 
 
         class GetJSON extends AsyncTask<String,Void,String> {
@@ -304,8 +311,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
                 JSON_RESULT = s;
 
                 if(!s.isEmpty()){
-//                Toast toast1 = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
-//                toast1.show();
+                Toast toast1 = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
+                toast1.show();
 
 
 
@@ -342,6 +349,7 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
                 map.put("uid",params[0]);
                 map.put("email",params[1]);
+                map.put("regid",params[2]);
 
                 RequestHandler3 rh = new RequestHandler3();
                 String s = rh.sendPostRequest(Config.URL_EMPLOYEEUPDATE,map);
@@ -349,8 +357,11 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
             }
         }
         GetJSON gj = new GetJSON();
-        gj.execute(uid,email);
+        gj.execute(uid,email,regid);
     }
+
+
+
 
 
     private void insertuser(final String employeename,String division,String staffid,String email,String uid){

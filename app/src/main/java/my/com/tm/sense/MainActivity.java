@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
@@ -64,13 +65,21 @@ public class MainActivity extends AppCompatActivity
 
 //set views
 
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            loadimage(imgvw,uid);
+            loadimage(imgvw, uid);
+        }
 
+            Intent i = getIntent();
 
-            displaySelectedScreen(R.id.ratepage);
+            if(i.getStringExtra("Notif") != null){
 
+                displaySelectedScreen(R.id.notification);
+            }else {
 
+                displaySelectedScreen(R.id.ratepage);
+
+            }
 
     }
 
@@ -139,6 +148,11 @@ public class MainActivity extends AppCompatActivity
                fragment = new generateqrcodestart();
                 break;
 
+            case R.id.notification:
+
+
+                fragment = new notification();
+                break;
 
             case R.id.nav_logout:
 
