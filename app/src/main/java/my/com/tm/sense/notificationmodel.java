@@ -9,6 +9,33 @@ public class notificationmodel {
     private String sender;
     private String receiver;
     private String notificationdate;
+    private String division;
+    private String staffid;
+    private String employeename;
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getStaffid() {
+        return staffid;
+    }
+
+    public void setStaffid(String staffid) {
+        this.staffid = staffid;
+    }
+
+    public String getEmployeename() {
+        return employeename;
+    }
+
+    public void setEmployeename(String employeename) {
+        this.employeename = employeename;
+    }
 
     public String getId() {
         return id;

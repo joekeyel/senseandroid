@@ -2,6 +2,7 @@ package my.com.tm.sense;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -137,7 +138,20 @@ public class NotificationRecycleAdaptor extends RecyclerView.Adapter<Notificatio
         holder.msg.setText(notificationlist.get(position).getMsg());
         holder.notificationdate.setText(notificationlist.get(position).getNotificationdate());
 
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent nextpage = new Intent(ctx, rateactivity.class);
+               nextpage.putExtra("employeename", notificationlist.get(position).getEmployeename());
+               nextpage.putExtra("division",notificationlist.get(position).getDivision());
+               nextpage.putExtra("staffid",notificationlist.get(position).getStaffid());
+               nextpage.putExtra("email",notificationlist.get(position).getSender());
+               nextpage.putExtra("activity",notificationlist.get(position).getActivity());
+               nextpage.putExtra("remarkactivity",notificationlist.get(position).getActivityremark());
 
+               ctx.startActivity(nextpage);
+           }
+       });
 
 
     }

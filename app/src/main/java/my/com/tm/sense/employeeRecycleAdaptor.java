@@ -139,7 +139,6 @@ public class employeeRecycleAdaptor extends RecyclerView.Adapter<employeeRecycle
 
 
 
-
         holder.name.setText(ttmodellist.get(position).getName());
         holder.email.setText(ttmodellist.get(position).getEmail());
         holder.division.setText(ttmodellist.get(position).getDivision());

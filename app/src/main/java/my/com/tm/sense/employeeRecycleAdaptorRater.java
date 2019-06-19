@@ -196,17 +196,21 @@ public class employeeRecycleAdaptorRater extends RecyclerView.Adapter<employeeRe
         sendrequest1(holder.averagerate,holder.countrater,ttmodellist.get(position).getEmail());
 
 
+       if(!FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(ttmodellist.get(position).getEmail())) {
+           holder.notifybtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
 
-       holder.notifybtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-               holder.notifybtn.setVisibility(View.INVISIBLE);
+                   holder.notifybtn.setVisibility(View.INVISIBLE);
 
 
-               sendrequest3(holder.imagestatus,ttmodellist.get(position).getEmail());
-           }
-       });
+                   sendrequest3(holder.imagestatus, ttmodellist.get(position).getEmail());
+               }
+           });
+       }else{
+
+           holder.notifybtn.setVisibility(View.INVISIBLE);
+       }
 
     }
 

@@ -68,18 +68,24 @@ public class MainActivity extends AppCompatActivity
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             loadimage(imgvw, uid);
+        }else{
+
+            startActivity(new Intent(this,LoginActivity.class));
+            finish();
         }
 
-            Intent i = getIntent();
+        Intent i = getIntent();
+        String notification = i.getStringExtra("Notif");
 
-            if(i.getStringExtra("Notif") != null){
+        if(notification != null){
 
-                displaySelectedScreen(R.id.notification);
-            }else {
+            displaySelectedScreen(R.id.notification);
+        }
+        else {
 
-                displaySelectedScreen(R.id.ratepage);
+            displaySelectedScreen(R.id.ratepage);
+        }
 
-            }
 
     }
 
@@ -207,7 +213,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-
 
         int id = item.getItemId();
 

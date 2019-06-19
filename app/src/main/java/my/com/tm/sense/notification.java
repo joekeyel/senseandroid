@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,14 +58,25 @@ public class notification extends Fragment {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
+
+        if(user == null){
+
+
+            startActivity(new Intent(getActivity(),LoginActivity.class));
+            getActivity().finish();
+
+        }
+
+        else {
+            String email = user.getEmail();
+            getJSON(email);
+
+        }
 
 
 
 
 
-
-        getJSON(email);
 
 
 
@@ -91,6 +103,9 @@ public class notification extends Fragment {
                 String e = jo.getString("notificationdate");
                 String f = jo.getString("activity");
                 String g = jo.getString("activityremark");
+                String h = jo.getString("division");
+                String I = jo.getString("staffid");
+                String j = jo.getString("employeename");
 
 
                 notificationmodel employeeeobject = new notificationmodel();
@@ -101,6 +116,9 @@ public class notification extends Fragment {
                 employeeeobject.setId(d);
                 employeeeobject.setMsg(a);
                 employeeeobject.setNotificationdate(e);
+                employeeeobject.setDivision(h);
+                employeeeobject.setStaffid(I);
+                employeeeobject.setEmployeename(j);
 
 
 

@@ -127,8 +127,8 @@ public class generateqrcodestart extends Fragment {
 
                 if(!activityselected.isEmpty() && !remarkactivitystr.isEmpty()) {
 
-                    Toast toast2 = Toast.makeText(getActivity(), activityselected, Toast.LENGTH_SHORT);
-                    toast2.show();
+//                    Toast toast2 = Toast.makeText(getActivity(), activityselected, Toast.LENGTH_SHORT);
+//                    toast2.show();
 
                     Intent nextpage = new Intent(getActivity(), generateqrcode.class);
 

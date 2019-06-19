@@ -46,7 +46,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+
             sendNotification(remoteMessage.getNotification().getBody());
+
+
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -64,36 +68,63 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-            Intent in = new Intent(getApplicationContext(), MainActivity.class);;
+            if(FirebaseAuth.getInstance().getCurrentUser() == null) {
 
-            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                Intent in = new Intent(getApplicationContext(), LoginActivity.class);
 
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addNextIntentWithParentStack(in);
+
+                PendingIntent contentIntenti = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                int numMessages = 0;
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                        this).setSmallIcon(R.mipmap.senseicon)
+                        .setContentTitle("SENSE Notification")
+                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                        .setAutoCancel(false)
+                        .setContentText(msg)
+                        .setNumber(++numMessages)
+                        .setContentIntent(contentIntenti)
+                        .setOnlyAlertOnce(false)
+                        .setTicker("SENSE Notification");
+
+
+                mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+                Log.d(TAG, "Notification sent successfully.");
+            }
+            else{
+
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
                 in.putExtra("Notif", msg);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addNextIntentWithParentStack(in);
+
+                PendingIntent contentIntenti = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                int numMessages = 0;
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                        this).setSmallIcon(R.mipmap.senseicon)
+                        .setContentTitle("SENSE Notification")
+                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                        .setAutoCancel(false)
+                        .setContentText(msg)
+                        .setNumber(++numMessages)
+                        .setContentIntent(contentIntenti)
+                        .setOnlyAlertOnce(false)
+                        .setTicker("SENSE Notification");
+
+
+                mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+                Log.d(TAG, "Notification sent successfully.");
+
             }
 
 
 
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-            stackBuilder.addNextIntentWithParentStack(in);
 
-            PendingIntent contentIntenti = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            int numMessages = 0;
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    this).setSmallIcon(R.mipmap.senseicon)
-                    .setContentTitle("SENSE Notification")
-                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                    .setAutoCancel(false)
-                    .setContentText(msg)
-                    .setNumber(++numMessages)
-                    .setContentIntent(contentIntenti)
-                    .setOnlyAlertOnce(false)
-                    .setTicker("SENSE Notification");
-
-
-            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-            Log.d(TAG, "Notification sent successfully.");
 
 
 

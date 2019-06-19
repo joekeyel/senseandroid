@@ -174,8 +174,8 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
         if (getArguments() != null) {
 
-            Toast toast = Toast.makeText(getActivity(), getArguments().getString("email"), Toast.LENGTH_SHORT);
-            toast.show();
+//            Toast toast = Toast.makeText(getActivity(), getArguments().getString("email"), Toast.LENGTH_SHORT);
+//            toast.show();
 
             String scantextqr = getArguments().getString("email");
             Log.e("scantext",getArguments().getString("email"));
@@ -830,12 +830,6 @@ public class searchemployee extends Fragment implements ListView.OnItemClickList
 
 
 
-//        @Override
-//        public boolean onCreateOptionsMenu(Menu menu) {
-//
-//
-//            getMenuInflater().inflate(R.menu.menu_main, menu);
-//            return true;
-//        }
+
     }
 }
